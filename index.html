@@ -426,9 +426,10 @@ function buildGrid(){
   ORGS[currentOrg].items.forEach(function(item){
     var div=document.createElement('div');
     div.className='score-item'+(item.diff?' differs':'');
+    var maxVal=Math.ceil(item.max*1.5);
     div.innerHTML='<span class="score-name">'+item.name+(item.diff?'<span class="diff-badge">機関により異なる</span>':'')+'</span>'
       +'<span class="score-max">満点：'+item.max+'点</span>'
-      +'<div class="score-row"><input class="score-inp" id="'+item.key+'" type="number" min="0" max="'+item.max+'" step="0.1" value="'+(prevVals[item.key]||0)+'" oninput="updateAll()"><span class="score-pct" id="'+item.key+'_pct">0%</span></div>';
+      +'<div class="score-row"><input class="score-inp" id="'+item.key+'" type="number" min="0" max="'+maxVal+'" step="0.1" value="'+(prevVals[item.key]||0)+'" oninput="updateAll()"><span class="score-pct" id="'+item.key+'_pct">0%</span></div>';
     grid.appendChild(div);
   });
 }
@@ -493,7 +494,7 @@ function parseText(){
         var m=txt.match(p);
         if(m){
           var v=parseFloat(m[1]);
-          if(!isNaN(v)&&v>=0&&v<=item.max){
+          if(!isNaN(v)&&v>=0){
             document.getElementById(item.key).value=v.toFixed(1);
             prevVals[item.key]=v;
             matched=true;found++;
@@ -513,7 +514,7 @@ function parseText(){
 function getValues(){
   return ORGS[currentOrg].items.map(function(item){
     var el=document.getElementById(item.key);
-    return Math.min(parseFloat(el?el.value:0)||0,item.max);
+    return parseFloat(el?el.value:0)||0;
   });
 }
 
@@ -529,7 +530,7 @@ function updateAll(){
   var vals=getValues();
   var total=vals.reduce(function(a,b){return a+b;},0);
   document.getElementById('totalScore').textContent=total.toFixed(1);
-  ORGS[currentOrg].items.forEach(function(item,i){var el=document.getElementById(item.key+'_pct');if(el)el.textContent=item.max>0?Math.round(vals[i]/item.max*100)+'%':'0%';});
+  ORGS[currentOrg].items.forEach(function(item,i){var el=document.getElementById(item.key+'_pct');if(el){var pct=item.max>0?Math.round(vals[i]/item.max*100):0;el.textContent=pct+'%';el.style.color=pct>100?'#e91e8c':'';}});
   var ri=getRatingInfo(total);
   var pill=document.getElementById('ratingPill');
   pill.textContent=ri.label;pill.style.background=ri.bg.replace('0.2','0.25');pill.style.color=ri.color;
