@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kayama Sales Hub | 営業事務業務ハブ</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1a2744;--navy-dark:#111c33;--accent:#0ea5e9;--accent-light:#38bdf8;--gray-bg:#f1f5f9;--gray-light:#e8edf4;--gray-mid:#94a3b8;--gray-dark:#64748b;--white:#ffffff;--bg:#F0F4F8;--surface:#ffffff;--text:#0f172a;--text-secondary:#475569;--border:#e2e8f0;--card-shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -1px rgba(0,0,0,0.04);--radius-sm:8px;--radius-md:10px;--radius-lg:14px;--radius-xl:18px;}
+  body.dark{--bg:#0d1526;--surface:#1a2744;--text:#f1f5f9;--text-secondary:#94a3b8;--border:#243460;--gray-bg:#1e2f50;--gray-light:#243460;--gray-mid:#94a3b8;--gray-dark:#cbd5e1;--card-shadow:0 4px 12px rgba(0,0,0,0.3);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;}
+  #login-screen{position:fixed;inset:0;background:var(--navy-dark);display:flex;align-items:center;justify-content:center;z-index:1000;background-image:radial-gradient(ellipse at 20% 50%,rgba(14,165,233,0.12) 0%,transparent 60%);}
+  .login-box{background:rgba(255,255,255,0.04);border:1px solid rgba(14,165,233,0.35);border-radius:var(--radius-xl);padding:48px 40px;width:360px;text-align:center;backdrop-filter:blur(20px);}
+  .login-icon{font-size:40px;margin-bottom:16px;}
+  .login-sub{color:var(--gray-mid);font-size:13px;margin-bottom:32px;}
+  .login-input{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-md);color:var(--white);font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s;}
+  .login-input:focus{border-color:var(--accent);}
+  .login-input::placeholder{color:rgba(255,255,255,0.3);}
+  .login-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-md);font-size:15px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .2s,transform .1s;}
+  .login-btn:hover{background:var(--accent-light);}
+  .login-btn:active{transform:scale(0.98);}
+  .login-error{color:#f87171;font-size:12px;margin-top:10px;display:none;}
+  #app{display:none;}
+  header{background:var(--navy);padding:0 32px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,0.3);}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--white);letter-spacing:.12em;display:flex;align-items:baseline;}
+  .logo-sales{color:var(--accent);margin-left:8px;}
+  .logo-hub{color:rgba(255,255,255,0.45);font-size:20px;margin-left:6px;}
+  .logo-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--gray-mid);font-weight:300;margin-left:12px;border-left:1px solid rgba(255,255,255,0.15);padding-left:12px;}
+  .header-right{display:flex;align-items:center;gap:16px;}
+  .header-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray-mid);}
+  .header-date span{color:var(--accent);font-weight:500;}
+  .dark-toggle{width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:var(--white);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+  .dark-toggle:hover{background:rgba(255,255,255,0.16);}
+  .notice-bar{background:var(--navy-dark);border-bottom:1px solid rgba(14,165,233,0.2);display:flex;align-items:center;overflow:hidden;height:28px;}
+  .notice-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;padding:0 14px;height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
+  .notice-ticker-wrap{flex:1;overflow:hidden;height:100%;display:flex;align-items:center;}
+  .notice-ticker{display:flex;align-items:center;animation:ticker 28s linear infinite;white-space:nowrap;}
+  .notice-ticker:hover{animation-play-state:paused;}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .notice-item{display:inline-flex;align-items:center;gap:6px;padding:0 32px;font-size:12px;color:rgba(255,255,255,0.85);}
+  .notice-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;}
+  .main-layout{display:grid;grid-template-columns:260px 1fr;gap:20px;padding:20px 32px;max-width:1400px;margin:0 auto;}
+  .left-panel{display:flex;flex-direction:column;gap:16px;}
+  .nav-card{background:var(--navy);border-radius:var(--radius-xl);padding:20px;box-shadow:0 6px 24px rgba(17,28,51,0.35);}
+  .nav-card-title{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;}
+  .nav-btn{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:var(--radius-md);font-size:13px;font-weight:600;transition:all .18s;margin-bottom:6px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;color:#fff;background:rgba(255,255,255,0.07);text-align:left;}
+  .nav-btn:last-child{margin-bottom:0;}
+  .nav-btn.nav-active{background:var(--accent);border-color:var(--accent);box-shadow:0 3px 10px rgba(14,165,233,0.35);}
+  .nav-btn:hover:not(.nav-active){background:rgba(255,255,255,0.13);transform:translateY(-1px);}
+  .nav-btn-icon{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:rgba(255,255,255,0.15);}
+  .nav-btn-label{font-size:13px;font-weight:700;}
+  .nav-btn-sub{font-size:10px;color:rgba(255,255,255,0.6);font-weight:400;margin-top:1px;}
+  .info-card{background:var(--surface);border-radius:var(--radius-xl);padding:18px;box-shadow:var(--card-shadow);}
+  .info-card-title{font-size:10px;font-weight:700;color:var(--gray-mid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+  .info-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+  .info-item:last-child{border-bottom:none;padding-bottom:0;}
+  .info-item-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+  .info-item-text{font-size:12px;color:var(--text);font-weight:600;line-height:1.4;}
+  .info-item-sub{font-size:11px;color:var(--gray-mid);margin-top:2px;}
+  .tool-area{display:flex;flex-direction:column;gap:16px;}
+  .tool-section{display:none;}
+  .tool-section.active{display:block;}
+  .tool-card{background:var(--surface);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--card-shadow);animation:fadeUp .4s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+  .tool-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+  .tool-icon{width:42px;height:42px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--navy);flex-shrink:0;}
+  .tool-title{font-size:16px;font-weight:700;color:var(--text);}
+  .tool-desc{font-size:11px;color:var(--gray-mid);margin-top:3px;line-height:1.5;}
+  .step-label{font-size:11px;font-weight:700;color:var(--gray-dark);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+  .step-num{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:10px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+  body.dark .step-num{background:var(--accent);}
+  .toggle-row{display:flex;gap:8px;margin-bottom:18px;}
+  .toggle-btn{flex:1;padding:10px 8px;font-size:12px;font-weight:700;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--gray-bg);color:var(--gray-dark);cursor:pointer;text-align:center;line-height:1.5;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+  .toggle-btn.active-hyogo{background:rgba(16,185,129,0.12);color:#059669;border-color:#10b981;}
+  .toggle-btn.active-mlit{background:rgba(14,165,233,0.12);color:#0284c7;border-color:#0ea5e9;}
+  .toggle-btn:hover:not(.active-hyogo):not(.active-mlit){background:var(--gray-light);}
+  .diff-badge{display:inline-block;padding:1px 6px;border-radius:6px;font-size:9px;font-weight:700;margin-left:5px;background:rgba(245,158,11,0.15);color:#d97706;}
+  .paste-box{width:100%;min-height:70px;padding:10px 12px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);resize:vertical;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;transition:border-color .2s;margin-bottom:8px;}
+  .paste-box:focus{outline:none;border-color:var(--accent);}
+  .parse-btn{padding:8px 18px;font-size:12px;font-weight:700;border-radius:var(--radius-md);border:none;background:var(--navy);color:#fff;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;}
+  .parse-btn:hover{background:var(--accent);}
+  .parse-result{margin-top:8px;font-size:12px;padding:7px 12px;border-radius:var(--radius-md);display:none;}
+  .parse-ok{background:rgba(16,185,129,0.12);color:#059669;}
+  .parse-ng{background:rgba(245,158,11,0.12);color:#d97706;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .form-col{display:flex;flex-direction:column;gap:4px;}
+  .form-col.full{grid-column:1/-1;}
+  .form-label{font-size:11px;color:var(--gray-dark);font-weight:600;}
+  .form-input{padding:8px 12px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s;}
+  .form-input:focus{outline:none;border-color:var(--accent);}
+  .score-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+  .score-item{display:flex;flex-direction:column;gap:4px;padding:10px 12px;background:var(--gray-bg);border-radius:var(--radius-md);border:1px solid var(--border);}
+  .score-item.differs{border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.05);}
+  .score-name{font-size:11px;color:var(--text-secondary);line-height:1.4;font-weight:500;}
+  .score-max{font-size:10px;color:var(--gray-mid);}
+  .score-row{display:flex;align-items:center;gap:6px;}
+  .score-inp{width:72px;padding:5px 8px;font-size:14px;font-weight:700;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--white);color:var(--text);text-align:right;font-family:'DM Mono',monospace;}
+  body.dark .score-inp{background:var(--navy-dark);}
+  .score-pct{font-size:11px;color:var(--gray-mid);min-width:34px;font-family:'DM Mono',monospace;}
+  .total-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--navy);border-radius:var(--radius-md);margin-bottom:16px;}
+  .total-label{font-size:13px;color:rgba(255,255,255,0.7);}
+  .total-val{font-size:22px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;}
+  .total-max-text{font-size:13px;color:rgba(255,255,255,0.5);margin-left:4px;}
+  .rating-pill{padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;}
+  .chart-wrap{display:flex;justify-content:center;margin-bottom:16px;}
+  .btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:var(--radius-md);font-size:12px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;border:1px solid var(--border);background:var(--gray-bg);color:var(--text);cursor:pointer;transition:all .15s;}
+  .action-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .action-btn.open-claude{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .action-btn.open-claude:hover{background:var(--accent);border-color:var(--accent);}
+  .action-btn.save-btn{background:linear-gradient(135deg,#059669,#10b981);color:#fff;border-color:#059669;}
+  .action-btn.save-btn:hover{background:linear-gradient(135deg,#047857,#059669);}
+  .prompt-wrap{margin-top:14px;display:none;}
+  .prompt-inner{background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px;}
+  .prompt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .prompt-title{font-size:11px;font-weight:700;color:var(--gray-dark);}
+  .copy-btn{padding:4px 12px;font-size:11px;font-weight:700;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--white);color:var(--gray-dark);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;}
+  .copy-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .prompt-text{font-size:12px;line-height:1.8;color:var(--text);white-space:pre-wrap;word-break:break-word;font-family:'DM Mono',monospace;}
+  /* 履歴 */
+  .history-section{margin-top:24px;padding-top:20px;border-top:2px solid var(--border);}
+  .history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  .history-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .history-count{padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(14,165,233,0.12);color:var(--accent);}
+  .history-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .history-excel-btn{padding:7px 14px;font-size:12px;font-weight:700;border-radius:var(--radius-md);border:none;background:linear-gradient(135deg,#217346,#2e9e5f);color:#fff;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
+  .history-excel-btn:hover{background:linear-gradient(135deg,#1a5c38,#217346);transform:translateY(-1px);}
+  .history-clear-btn{padding:7px 14px;font-size:12px;font-weight:600;border-radius:var(--radius-md);border:1px solid var(--border);background:transparent;color:var(--gray-mid);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;}
+  .history-clear-btn:hover{background:rgba(239,68,68,0.1);color:#ef4444;border-color:#ef4444;}
+  .history-empty{text-align:center;padding:32px 16px;color:var(--gray-mid);font-size:13px;line-height:1.7;}
+  /* テーブル */
+  .history-table-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--border);}
+  .history-table{width:100%;border-collapse:collapse;font-size:12px;}
+  .history-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-size:11px;font-weight:700;white-space:nowrap;}
+  .history-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;white-space:nowrap;}
+  .history-table tr:last-child td{border-bottom:none;}
+  .history-table tr:hover td{background:var(--gray-bg);}
+  .score-cell{font-family:'DM Mono',monospace;font-weight:700;font-size:13px;}
+  .name-cell{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;}
+  .tbl-rating{padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;display:inline-block;}
+  .tbl-org{padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;}
+  .org-hyogo{background:rgba(16,185,129,0.12);color:#059669;}
+  .org-mlit{background:rgba(14,165,233,0.12);color:#0284c7;}
+  .tbl-btn{padding:4px 10px;font-size:11px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;margin-right:4px;}
+  .tbl-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .tbl-del-btn{padding:4px 8px;font-size:11px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--gray-mid);cursor:pointer;transition:all .15s;}
+  .tbl-del-btn:hover{background:rgba(239,68,68,0.1);color:#ef4444;border-color:#ef4444;}
+  /* モーダル */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:none;align-items:center;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:var(--surface);border-radius:var(--radius-xl);padding:24px;max-width:480px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+  .modal-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;}
+  .modal-img{width:100%;border-radius:var(--radius-md);border:1px solid var(--border);}
+  .modal-btns{display:flex;gap:8px;margin-top:14px;}
+  .modal-dl-btn{flex:1;padding:9px;font-size:13px;font-weight:700;border-radius:var(--radius-md);border:none;background:var(--navy);color:#fff;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;}
+  .modal-dl-btn:hover{background:var(--accent);}
+  .modal-close-btn{padding:9px 16px;font-size:13px;font-weight:700;border-radius:var(--radius-md);border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+  .modal-close-btn:hover{background:var(--gray-bg);}
+  /* Excel操作ガイド */
+  .excel-guide{background:rgba(33,115,70,0.08);border:1px solid rgba(33,115,70,0.25);border-radius:var(--radius-md);padding:12px 16px;margin-top:10px;font-size:12px;color:var(--text);line-height:1.8;}
+  .excel-guide-title{font-weight:700;color:#217346;margin-bottom:4px;font-size:12px;}
+  .placeholder-card{background:var(--gray-bg);border:2px dashed var(--border);border-radius:var(--radius-xl);padding:48px 24px;text-align:center;}
+  .placeholder-icon{font-size:40px;margin-bottom:12px;}
+  .placeholder-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .placeholder-desc{font-size:13px;color:var(--gray-mid);line-height:1.7;}
+  .coming-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(14,165,233,0.12);color:var(--accent);margin-top:14px;}
+  ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--gray-light);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-icon">📋</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.12em;color:#fff;margin-bottom:6px;">Kayama <span style="color:var(--accent)">Sales</span> <span style="color:rgba(255,255,255,0.4);font-size:24px;">Hub</span></div>
+    <div class="login-sub">営業事務業務ハブ｜パスワードを入力してください</div>
+    <input type="password" class="login-input" id="pw-input" placeholder="パスワード" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">ログイン</button>
+    <div class="login-error" id="login-error">パスワードが違います</div>
+  </div>
+</div>
+
+<!-- グラフプレビューモーダル -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle"></div>
+    <img class="modal-img" id="modalImg" src="" alt="グラフプレビュー">
+    <div class="modal-btns">
+      <button class="modal-dl-btn" onclick="modalDownload()">💾 PNGダウンロード</button>
+      <button class="modal-close-btn" onclick="closeModalBtn()">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="logo"><span>Kayama</span><span class="logo-sales">Sales</span><span class="logo-hub">Hub</span><span class="logo-sub">営業事務業務ハブ</span></div>
+    <div class="header-right">
+      <div class="header-date" id="header-date"></div>
+      <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()">🌙</button>
+    </div>
+  </header>
+  <div class="notice-bar">
+    <div class="notice-label">📢 お知らせ</div>
+    <div class="notice-ticker-wrap"><div class="notice-ticker">
+      <div class="notice-item"><span class="notice-dot"></span>Kayama Sales Hub を公開しました。</div>
+      <div class="notice-item"><span class="notice-dot"></span>工事成績評定グラフツール：保存→一覧に蓄積、Excelに各工事シート＋グラフ貼り付け欄を自動生成します。</div>
+      <div class="notice-item"><span class="notice-dot"></span>入札業務報告書・入札結果報告書ツールは近日公開予定です。</div>
+      <div class="notice-item"><span class="notice-dot"></span>Kayama Sales Hub を公開しました。</div>
+      <div class="notice-item"><span class="notice-dot"></span>工事成績評定グラフツール：保存→一覧に蓄積、Excelに各工事シート＋グラフ貼り付け欄を自動生成します。</div>
+      <div class="notice-item"><span class="notice-dot"></span>入札業務報告書・入札結果報告書ツールは近日公開予定です。</div>
+    </div></div>
+  </div>
+
+  <div class="main-layout">
+    <div class="left-panel">
+      <div class="nav-card">
+        <div class="nav-card-title">🛠 ツールメニュー</div>
+        <button class="nav-btn nav-active" id="nav-seiseki" onclick="showTool('seiseki',this)">
+          <div class="nav-btn-icon">⬡</div>
+          <div><div class="nav-btn-label">工事成績評定グラフ</div><div class="nav-btn-sub">PDFから六角形グラフを生成</div></div>
+        </button>
+        <button class="nav-btn" id="nav-nyusatsu" onclick="showTool('nyusatsu',this)">
+          <div class="nav-btn-icon">📄</div>
+          <div><div class="nav-btn-label">入札業務報告書</div><div class="nav-btn-sub">入札公告PDFから自動作成</div></div>
+        </button>
+        <button class="nav-btn" id="nav-rakusatsu" onclick="showTool('rakusatsu',this)">
+          <div class="nav-btn-icon">📋</div>
+          <div><div class="nav-btn-label">入札結果報告書</div><div class="nav-btn-sub">落札決定通知書PDFから作成</div></div>
+        </button>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">📖 使い方ガイド</div>
+        <div class="info-item"><div class="info-item-icon">1️⃣</div><div><div class="info-item-text">発注機関を選択</div><div class="info-item-sub">兵庫県・市町村 or 国交省</div></div></div>
+        <div class="info-item"><div class="info-item-icon">2️⃣</div><div><div class="info-item-text">「Claudeで読み取る」を押す</div><div class="info-item-sub">プロンプト自動コピー＋Claude.aiが開く</div></div></div>
+        <div class="info-item"><div class="info-item-icon">3️⃣</div><div><div class="info-item-text">PDFを添付して送信</div><div class="info-item-sub">プロンプトを貼り付けてPDFも添付</div></div></div>
+        <div class="info-item"><div class="info-item-icon">4️⃣</div><div><div class="info-item-text">返答をペーストして保存</div><div class="info-item-sub">自動入力→グラフ確認→保存で一覧に蓄積</div></div></div>
+        <div class="info-item"><div class="info-item-icon">5️⃣</div><div><div class="info-item-text">Excelダウンロード</div><div class="info-item-sub">各シートのグラフ欄にPNGを貼り付けて完成</div></div></div>
+      </div>
+    </div>
+
+    <div class="tool-area">
+      <div class="tool-section active" id="tool-seiseki">
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">⬡</div>
+            <div><div class="tool-title">工事成績評定グラフ生成ツール</div><div class="tool-desc">PDFをClaudeに読み取らせた結果をペーストするだけで六角形グラフを自動生成。Excelには各工事シート＋グラフ貼り付け欄が自動で作られます。</div></div>
+          </div>
+
+          <div class="step-label"><span class="step-num">1</span> 発注機関を選択</div>
+          <div class="toggle-row">
+            <button class="toggle-btn active-hyogo" id="btn-hyogo" onclick="switchOrg('hyogo')">兵庫県・市町村発注<br><span style="font-size:10px;font-weight:400;">②施工状況 35.0 ／ ⑥社会性等 3.8</span></button>
+            <button class="toggle-btn" id="btn-mlit" onclick="switchOrg('mlit')">国土交通省発注<br><span style="font-size:10px;font-weight:400;">②施工状況 33.6 ／ ⑥社会性等 5.2</span></button>
+          </div>
+
+          <div class="step-label"><span class="step-num">2</span> Claudeで読み取る</div>
+          <div style="margin-bottom:18px;">
+            <button class="action-btn open-claude" onclick="openClaude()">🤖 Claudeでこのプロンプトを開く（PDF読み取り用）</button>
+            <div style="font-size:11px;color:var(--gray-mid);margin-top:6px;">※ プロンプトが自動コピーされ、Claude.aiが新しいタブで開きます。プロンプトを貼り付けてPDFも添付して送信してください。</div>
+          </div>
+
+          <div class="step-label"><span class="step-num">3</span> Claudeの返答をここにペースト（自動入力）</div>
+          <textarea class="paste-box" id="pasteArea" placeholder="Claudeの返答テキストをここにペーストしてください。各項目に自動入力されます。&#10;例）工事名：○○地区道路改良工事&#10;施工体制：6.8点　施工状況：28.5点…"></textarea>
+          <button class="parse-btn" onclick="parseText()">✨ 自動入力を実行</button>
+          <div class="parse-result" id="parseResult"></div>
+
+          <div style="height:20px;"></div>
+          <div class="step-label"><span class="step-num">4</span> 内容を確認・修正してグラフ生成</div>
+          <div class="form-grid">
+            <div class="form-col full"><div class="form-label">工事名</div><input class="form-input" id="kojiName" placeholder="○○地区道路改良工事"></div>
+            <div class="form-col"><div class="form-label">受注者名</div><input class="form-input" id="juchu" placeholder="株式会社カヤマ"></div>
+            <div class="form-col"><div class="form-label">評定年月日</div><input class="form-input" id="nengetsu" placeholder="令和8年2月26日"></div>
+            <div class="form-col"><div class="form-label">発注事務所・課</div><input class="form-input" id="hatchu" placeholder="○○国道事務所"></div>
+            <div class="form-col"><div class="form-label">工事番号</div><input class="form-input" id="kojiNo" placeholder="国近整技管第279号"></div>
+            <div class="form-col full"><div class="form-label">工期</div><input class="form-input" id="kouki" placeholder="令和6年3月29日〜令和8年2月28日"></div>
+            <div class="form-col"><div class="form-label">完成技術検査年月日</div><input class="form-input" id="kensaDate" placeholder="令和8年1月23日"></div>
+          </div>
+          <div class="score-grid" id="scoreGrid"></div>
+          <div class="total-bar">
+            <span class="total-label">合計得点</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="total-val" id="totalScore">0.0</span>
+              <span class="total-max-text">/ 100.0点</span>
+              <span class="rating-pill" id="ratingPill" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);">-</span>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="radarChart" width="380" height="380"></canvas></div>
+          <div class="btn-row">
+            <button class="action-btn save-btn" onclick="saveToHistory()">💾 保存して一覧に追加</button>
+            <button class="action-btn" onclick="togglePrompt()">📋 プロンプトを確認・コピー</button>
+          </div>
+          <div class="prompt-wrap" id="promptWrap">
+            <div class="prompt-inner">
+              <div class="prompt-top"><div class="prompt-title">↓ コピーしてClaudeに貼り、PDFも添付して送信してください</div><button class="copy-btn" id="copyBtn" onclick="copyPrompt()">📋 コピー</button></div>
+              <div class="prompt-text" id="promptBox"></div>
+            </div>
+          </div>
+
+          <!-- 履歴一覧 -->
+          <div class="history-section">
+            <div class="history-header">
+              <div class="history-title">📁 工事成績評定 一覧<span class="history-count" id="historyCount">0件</span></div>
+              <div class="history-actions">
+                <button class="history-excel-btn" onclick="exportExcel()">📊 Excelダウンロード（グラフ貼り付け欄付き）</button>
+                <button class="history-clear-btn" onclick="clearHistory()">🗑 全件削除</button>
+              </div>
+            </div>
+
+            <!-- Excelの使い方ガイド -->
+            <div class="excel-guide" id="excelGuide" style="display:none;">
+              <div class="excel-guide-title">📋 Excelへのグラフ貼り付け手順</div>
+              ① 一覧の「💾 PNG」ボタンでグラフ画像を保存　② Excelを開き該当工事のシートを選択　③ 「グラフをここに貼り付け」セルを確認　④ Excelの「挿入」→「画像」→ PNGファイルを選択して貼り付け
+            </div>
+
+            <div id="historyArea">
+              <div class="history-empty">まだ保存されたデータはありません。<br>グラフを作成して「保存して一覧に追加」ボタンを押してください。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section" id="tool-nyusatsu">
+        <div class="tool-card">
+          <div class="tool-header"><div class="tool-icon">📄</div><div><div class="tool-title">入札業務報告書作成ツール</div><div class="tool-desc">入札公告・入札説明書のPDFをClaudeに読み取らせて当社指定様式の報告書を自動作成</div></div></div>
+          <div class="placeholder-card"><div class="placeholder-icon">🚧</div><div class="placeholder-title">準備中</div><div class="placeholder-desc">Excelテンプレートをアップロードしていただき次第、開発を進めます。</div><div class="coming-badge">Coming Soon</div></div>
+        </div>
+      </div>
+
+      <div class="tool-section" id="tool-rakusatsu">
+        <div class="tool-card">
+          <div class="tool-header"><div class="tool-icon">📋</div><div><div class="tool-title">入札結果報告書作成ツール</div><div class="tool-desc">落札決定通知書のPDFをClaudeに読み取らせて当社指定様式の結果報告書を自動作成</div></div></div>
+          <div class="placeholder-card"><div class="placeholder-icon">🚧</div><div class="placeholder-title">準備中</div><div class="placeholder-desc">Excelテンプレートをアップロードしていただき次第、開発を進めます。</div><div class="coming-badge">Coming Soon</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+var PASSWORD='kayama-KD';
+var STORAGE_KEY='ks-seiseki-v2';
+var modalCurrentId=null;
+
+var ORGS={
+  hyogo:{label:'兵庫県・市町村',color:'#1D9E75',fillL:'rgba(29,158,117,0.18)',fillD:'rgba(29,158,117,0.28)',
+    items:[
+      {key:'s1',name:'①施工体制',    max:7.4, kw:['施工体制'],               diff:false},
+      {key:'s2',name:'②施工状況',    max:35.0,kw:['施工状況'],               diff:true},
+      {key:'s3',name:'③出来形・出来ばえ',max:40.8,kw:['出来形','出来ばえ','できばえ'],diff:false},
+      {key:'s4',name:'④高度技術',    max:7.3, kw:['高度技術','工事特性'],    diff:false},
+      {key:'s5',name:'⑤創意工夫',    max:5.7, kw:['創意工夫'],               diff:false},
+      {key:'s6',name:'⑥社会性等',    max:3.8, kw:['社会性'],                 diff:true}
+    ]},
+  mlit:{label:'国土交通省',color:'#0ea5e9',fillL:'rgba(14,165,233,0.18)',fillD:'rgba(14,165,233,0.28)',
+    items:[
+      {key:'s1',name:'①施工体制',    max:7.4, kw:['施工体制'],               diff:false},
+      {key:'s2',name:'②施工状況',    max:33.6,kw:['施工状況'],               diff:true},
+      {key:'s3',name:'③出来形・出来ばえ',max:40.8,kw:['出来形','出来ばえ','できばえ'],diff:false},
+      {key:'s4',name:'④工事特性',    max:7.3, kw:['工事特性','高度技術'],    diff:false},
+      {key:'s5',name:'⑤創意工夫',    max:5.7, kw:['創意工夫'],               diff:false},
+      {key:'s6',name:'⑥社会性等',    max:5.2, kw:['社会性'],                 diff:true}
+    ]}
+};
+
+var currentOrg='hyogo';
+var chart=null;
+var prevVals={s1:0,s2:0,s3:0,s4:0,s5:0,s6:0};
+
+(function(){
+  if(localStorage.getItem('ks-loggedin')==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    if(localStorage.getItem('ks-dark')==='1'){document.body.classList.add('dark');document.getElementById('dark-toggle').textContent='☀️';}
+    initApp();
+  }
+})();
+
+function doLogin(){
+  var v=document.getElementById('pw-input').value;
+  if(v===PASSWORD){
+    localStorage.setItem('ks-loggedin','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    initApp();
+  } else {
+    document.getElementById('login-error').style.display='block';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  var isDark=document.body.classList.contains('dark');
+  document.getElementById('dark-toggle').textContent=isDark?'☀️':'🌙';
+  localStorage.setItem('ks-dark',isDark?'1':'0');
+  if(chart)updateAll();
+}
+
+function showTool(id,btn){
+  document.querySelectorAll('.tool-section').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('tool-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('nav-active');});
+  btn.classList.add('nav-active');
+}
+
+function initApp(){
+  var now=new Date();
+  var days=['日','月','火','水','木','金','土'];
+  document.getElementById('header-date').innerHTML=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日（<span>'+days[now.getDay()]+'曜日</span>）';
+  buildGrid();updateAll();updatePromptBox();renderHistory();
+}
+
+function switchOrg(org){
+  currentOrg=org;
+  document.getElementById('btn-hyogo').className='toggle-btn'+(org==='hyogo'?' active-hyogo':'');
+  document.getElementById('btn-mlit').className='toggle-btn'+(org==='mlit'?' active-mlit':'');
+  buildGrid();updateAll();updatePromptBox();
+}
+
+function buildGrid(){
+  var grid=document.getElementById('scoreGrid');grid.innerHTML='';
+  ORGS[currentOrg].items.forEach(function(item){
+    var div=document.createElement('div');
+    div.className='score-item'+(item.diff?' differs':'');
+    div.innerHTML='<span class="score-name">'+item.name+(item.diff?'<span class="diff-badge">機関により異なる</span>':'')+'</span>'
+      +'<span class="score-max">満点：'+item.max+'点</span>'
+      +'<div class="score-row"><input class="score-inp" id="'+item.key+'" type="number" min="0" max="'+item.max+'" step="0.1" value="'+(prevVals[item.key]||0)+'" oninput="updateAll()"><span class="score-pct" id="'+item.key+'_pct">0%</span></div>';
+    grid.appendChild(div);
+  });
+}
+
+function parseText(){
+  var txt=document.getElementById('pasteArea').value;
+  var res=document.getElementById('parseResult');
+  if(!txt.trim()){res.style.display='none';return;}
+  var found=0;
+
+  // キーワードの後ろの値を行末まで取得するシンプルな抽出
+  function extractVal(keys){
+    var lines=txt.split(/[\r\n]+/);
+    for(var ki=0;ki<keys.length;ki++){
+      var k=keys[ki];
+      for(var li=0;li<lines.length;li++){
+        var line=lines[li];
+        var sepIdx=-1;
+        // 「：」「:」を探す
+        var c1=line.indexOf('：');
+        var c2=line.indexOf(':');
+        if(c1>=0) sepIdx=c1;
+        else if(c2>=0) sepIdx=c2;
+        if(sepIdx<0) continue;
+        var label=line.substring(0,sepIdx).trim();
+        var val=line.substring(sepIdx+1).trim();
+        if(label===k && val.length>0){
+          return val;
+        }
+      }
+    }
+    return '';
+  }
+
+  var fields=[
+    ['kojiName',  ['工事名']],
+    ['juchu',     ['受注者名','受注者']],
+    ['nengetsu',  ['評定年月日','工事成績評定通知日']],
+    ['hatchu',    ['発注機関・事務所','発注機関','発注事務所']],
+    ['kojiNo',    ['工事番号']],
+    ['kouki',     ['工期']],
+    ['kensaDate', ['完成技術検査年月日']],
+  ];
+  fields.forEach(function(pair){
+    var id=pair[0];
+    if(document.getElementById(id)&&!document.getElementById(id).value){
+      var val=extractVal(pair[1]);
+      if(val)document.getElementById(id).value=val;
+    }
+  });
+
+  ORGS[currentOrg].items.forEach(function(item){
+    var matched=false;
+    item.kw.forEach(function(kw){
+      if(matched)return;
+      var pats=[
+        new RegExp(kw+'[^\\d]*([\\d]+\\.?[\\d]*)\\s*点'),
+        new RegExp(kw+'[：: 　]+([\\d]+\\.?[\\d]*)')
+      ];
+      pats.forEach(function(p){
+        if(matched)return;
+        var m=txt.match(p);
+        if(m){
+          var v=parseFloat(m[1]);
+          if(!isNaN(v)&&v>=0&&v<=item.max){
+            document.getElementById(item.key).value=v.toFixed(1);
+            prevVals[item.key]=v;
+            matched=true;found++;
+          }
+        }
+      });
+    });
+  });
+
+  res.style.display='block';
+  if(found>=4){res.className='parse-result parse-ok';res.textContent='✅ '+found+'項目を自動入力しました。内容を確認してください。';}
+  else if(found>0){res.className='parse-result parse-ng';res.textContent='⚠️ '+found+'項目のみ読み取れました。残りは手動で入力してください。';}
+  else{res.className='parse-result parse-ng';res.textContent='❌ 数値を読み取れませんでした。手動で入力してください。';}
+  updateAll();
+}
+
+function getValues(){
+  return ORGS[currentOrg].items.map(function(item){
+    var el=document.getElementById(item.key);
+    return Math.min(parseFloat(el?el.value:0)||0,item.max);
+  });
+}
+
+function getRatingInfo(total){
+  if(total>=90)return{label:'優秀',bg:'rgba(16,185,129,0.2)',color:'#059669'};
+  if(total>=75)return{label:'良好',bg:'rgba(14,165,233,0.2)',color:'#0284c7'};
+  if(total>=60)return{label:'普通',bg:'rgba(245,158,11,0.2)',color:'#d97706'};
+  return{label:'要改善',bg:'rgba(239,68,68,0.2)',color:'#dc2626'};
+}
+
+function updateAll(){
+  ORGS[currentOrg].items.forEach(function(item){var el=document.getElementById(item.key);if(el)prevVals[item.key]=parseFloat(el.value)||0;});
+  var vals=getValues();
+  var total=vals.reduce(function(a,b){return a+b;},0);
+  document.getElementById('totalScore').textContent=total.toFixed(1);
+  ORGS[currentOrg].items.forEach(function(item,i){var el=document.getElementById(item.key+'_pct');if(el)el.textContent=item.max>0?Math.round(vals[i]/item.max*100)+'%':'0%';});
+  var ri=getRatingInfo(total);
+  var pill=document.getElementById('ratingPill');
+  pill.textContent=ri.label;pill.style.background=ri.bg.replace('0.2','0.25');pill.style.color=ri.color;
+  drawChart(vals);
+}
+
+function drawChart(vals){
+  var org=ORGS[currentOrg];
+  var pcts=org.items.map(function(item,i){return item.max>0?parseFloat((vals[i]/item.max*100).toFixed(1)):0;});
+  var isDark=document.body.classList.contains('dark');
+  var gc=isDark?'rgba(255,255,255,0.1)':'rgba(0,0,0,0.08)';
+  var tc=isDark?'#94a3b8':'#64748b';
+  if(chart)chart.destroy();
+  var whiteBg={id:'whiteBg',beforeDraw:function(c){var ctx=c.canvas.getContext('2d');ctx.save();ctx.globalCompositeOperation='destination-over';ctx.fillStyle='#ffffff';ctx.fillRect(0,0,c.width,c.height);ctx.restore();}};
+  chart=new Chart(document.getElementById('radarChart'),{
+    type:'radar',plugins:[whiteBg],
+    data:{labels:org.items.map(function(i){return i.name;}),datasets:[{label:'達成率（%）',data:pcts,backgroundColor:isDark?org.fillD:org.fillL,borderColor:org.color,borderWidth:2,pointBackgroundColor:org.color,pointRadius:4,pointHoverRadius:6}]},
+    options:{responsive:false,scales:{r:{min:0,max:100,ticks:{stepSize:25,color:tc,font:{size:11},backdropColor:'transparent',callback:function(v){return v+'%';}},grid:{color:gc},angleLines:{color:gc},pointLabels:{color:tc,font:{size:12,family:"'Plus Jakarta Sans',sans-serif"}}}},plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){var i=ctx.dataIndex;var raw=parseFloat(document.getElementById(org.items[i].key)?document.getElementById(org.items[i].key).value:0)||0;return ' '+raw.toFixed(1)+' / '+org.items[i].max+'点（'+ctx.raw+'%）';}}}}}
+  });
+}
+
+function getCanvasPng(){
+  var canvas=document.getElementById('radarChart');
+  var off=document.createElement('canvas');off.width=canvas.width;off.height=canvas.height;
+  var ctx=off.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,off.width,off.height);ctx.drawImage(canvas,0,0);
+  return off.toDataURL('image/png');
+}
+
+function saveToHistory(){
+  var name=document.getElementById('kojiName').value;
+  if(!name){alert('工事名を入力してください。');return;}
+  var vals=getValues();
+  var total=vals.reduce(function(a,b){return a+b;},0);
+  var scores={};
+  ORGS[currentOrg].items.forEach(function(item,i){scores[item.key]=vals[i];});
+  var record={
+    id:Date.now(),savedAt:new Date().toLocaleString('ja-JP'),
+    org:currentOrg,orgLabel:ORGS[currentOrg].label,
+    kojiName:name,juchu:document.getElementById('juchu').value,
+    nengetsu:document.getElementById('nengetsu').value,
+    hatchu:document.getElementById('hatchu').value,
+    kojiNo:document.getElementById('kojiNo').value,
+    kouki:document.getElementById('kouki').value,
+    kensaDate:document.getElementById('kensaDate').value,
+    total:parseFloat(total.toFixed(1)),scores:scores,
+    pngData:getCanvasPng()
+  };
+  var history=getHistory();history.unshift(record);
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(history));
+  renderHistory();
+  alert('✅「'+name+'」を一覧に保存しました！');
+}
+
+function getHistory(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}}
+
+function deleteHistory(id){
+  if(!confirm('この記録を削除しますか？'))return;
+  var h=getHistory().filter(function(r){return r.id!==id;});
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(h));renderHistory();
+}
+
+function clearHistory(){
+  if(!confirm('全件削除しますか？この操作は元に戻せません。'))return;
+  localStorage.removeItem(STORAGE_KEY);renderHistory();
+}
+
+function downloadPng(id){
+  var rec=getHistory().find(function(r){return r.id===id;});
+  if(!rec)return;
+  var a=document.createElement('a');
+  a.download=(rec.kojiName||'工事成績評定')+'_'+rec.orgLabel+'_評定グラフ.png';
+  a.href=rec.pngData;a.click();
+}
+
+function openModal(id){
+  var rec=getHistory().find(function(r){return r.id===id;});
+  if(!rec)return;
+  modalCurrentId=id;
+  document.getElementById('modalTitle').textContent=rec.kojiName+' （'+rec.orgLabel+'）';
+  document.getElementById('modalImg').src=rec.pngData;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalBtn();}
+function closeModalBtn(){document.getElementById('modalOverlay').classList.remove('open');modalCurrentId=null;}
+function modalDownload(){if(modalCurrentId)downloadPng(modalCurrentId);}
+
+function renderHistory(){
+  var history=getHistory();
+  document.getElementById('historyCount').textContent=history.length+'件';
+  document.getElementById('excelGuide').style.display=history.length>0?'block':'none';
+  var area=document.getElementById('historyArea');
+  if(history.length===0){
+    area.innerHTML='<div class="history-empty">まだ保存されたデータはありません。<br>グラフを作成して「保存して一覧に追加」ボタンを押してください。</div>';
+    return;
+  }
+  var html='<div class="history-table-wrap"><table class="history-table"><thead><tr>'
+    +'<th>No.</th><th>工事名</th><th>発注機関</th><th>評定年月</th><th>発注事務所</th>'
+    +'<th>①</th><th>②</th><th>③</th><th>④</th><th>⑤</th><th>⑥</th>'
+    +'<th>合計</th><th>評定</th><th>保存日時</th><th>操作</th>'
+    +'</tr></thead><tbody>';
+  history.forEach(function(rec,idx){
+    var ri=getRatingInfo(rec.total);
+    var orgCls=rec.org==='mlit'?'org-mlit':'org-hyogo';
+    var s=rec.scores||{};
+    html+='<tr>'
+      +'<td style="color:var(--gray-mid);font-family:DM Mono,monospace;">'+(history.length-idx)+'</td>'
+      +'<td class="name-cell" title="'+esc(rec.kojiName)+'">'+esc(rec.kojiName)+'</td>'
+      +'<td><span class="tbl-org '+orgCls+'">'+esc(rec.orgLabel)+'</span></td>'
+      +'<td>'+esc(rec.nengetsu||'-')+'</td>'
+      +'<td>'+esc(rec.hatchu||'-')+'</td>'
+      +'<td class="score-cell">'+(s.s1||'-')+'</td>'
+      +'<td class="score-cell">'+(s.s2||'-')+'</td>'
+      +'<td class="score-cell">'+(s.s3||'-')+'</td>'
+      +'<td class="score-cell">'+(s.s4||'-')+'</td>'
+      +'<td class="score-cell">'+(s.s5||'-')+'</td>'
+      +'<td class="score-cell">'+(s.s6||'-')+'</td>'
+      +'<td class="score-cell" style="font-size:14px;">'+rec.total+'</td>'
+      +'<td><span class="tbl-rating" style="background:'+ri.bg+';color:'+ri.color+'">'+ri.label+'</span></td>'
+      +'<td style="color:var(--gray-mid);font-size:11px;">'+esc(rec.savedAt)+'</td>'
+      +'<td style="white-space:nowrap;">'
+        +'<button class="tbl-btn" onclick="openModal('+rec.id+')">🖼</button>'
+        +'<button class="tbl-btn" onclick="downloadPng('+rec.id+')">💾 PNG</button>'
+        +'<button class="tbl-del-btn" onclick="deleteHistory('+rec.id+')">🗑</button>'
+      +'</td>'
+    +'</tr>';
+  });
+  html+='</tbody></table></div>';
+  area.innerHTML=html;
+}
+
+// ===== Excelエクスポート（各工事シート＋グラフ貼り付け欄付き） =====
+function exportExcel(){
+  var history=getHistory();
+  if(history.length===0){alert('保存されたデータがありません。');return;}
+
+  var wb=XLSX.utils.book_new();
+
+  // ===== 1枚目：一覧シート =====
+  var summaryRows=[
+    ['工事成績評定 一覧表'],
+    ['作成日：'+new Date().toLocaleDateString('ja-JP')],
+    [],
+    ['No.','工事名','発注機関','工事番号','工期','完成技術検査年月日','評定年月日','発注機関・事務所',
+     '①施工体制','②施工状況','③出来形・出来ばえ','④高度技術/工事特性','⑤創意工夫','⑥社会性等',
+     '合計点','評定','保存日時','詳細シート']
+  ];
+  history.forEach(function(rec,idx){
+    var ri=getRatingInfo(rec.total);
+    var s=rec.scores||{};
+    var sheetName=makeSheetName(rec,history.length-idx);
+    summaryRows.push([
+      history.length-idx,
+      rec.kojiName||'',rec.orgLabel||'',rec.kojiNo||'',rec.kouki||'',rec.kensaDate||'',rec.nengetsu||'',rec.hatchu||'',
+      s.s1||'',s.s2||'',s.s3||'',s.s4||'',s.s5||'',s.s6||'',
+      rec.total,ri.label,rec.savedAt||'',sheetName
+    ]);
+  });
+  var wsSummary=XLSX.utils.aoa_to_sheet(summaryRows);
+  wsSummary['!cols']=[{wch:5},{wch:44},{wch:14},{wch:18},{wch:30},{wch:20},{wch:16},{wch:20},{wch:10},{wch:10},{wch:16},{wch:16},{wch:10},{wch:10},{wch:8},{wch:8},{wch:20},{wch:20}];
+  wsSummary['!merges']=[{s:{r:0,c:0},e:{r:0,c:15}}];
+  XLSX.utils.book_append_sheet(wb,wsSummary,'📋 工事成績評定 一覧');
+
+  // ===== 2枚目以降：工事別シート =====
+  history.forEach(function(rec,idx){
+    var sheetName=makeSheetName(rec,history.length-idx);
+    var org=ORGS[rec.org]||ORGS['hyogo'];
+    var s=rec.scores||{};
+    var ri=getRatingInfo(rec.total);
+
+    var rows=[
+      ['工事成績評定書　（'+rec.orgLabel+'発注）'],
+      [],
+      ['工事名',          rec.kojiName||''],
+      ['受注者名',        rec.juchu||''],
+      ['工事番号',        rec.kojiNo||''],
+      ['工期',            rec.kouki||''],
+      ['完成技術検査年月日', rec.kensaDate||''],
+      ['評定年月日',      rec.nengetsu||''],
+      ['発注機関・事務所',rec.hatchu||''],
+      [],
+      ['合計得点',  rec.total,  '/ 100.0点', '評定', ri.label],
+      [],
+      ['項目','満点','得点','達成率（%）']
+    ];
+
+    org.items.forEach(function(item){
+      var sv=parseFloat(s[item.key])||0;
+      var pct=item.max>0?Math.round(sv/item.max*100):0;
+      rows.push([item.name, item.max, sv, pct+'%']);
+    });
+
+    rows.push([]);
+    rows.push(['▼ グラフをここに貼り付け（下のセルに画像を挿入してください）']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['']);
+    rows.push(['貼り付け手順：①上の一覧で「💾 PNG」ボタンを押してグラフ画像を保存 ②Excelの「挿入」→「画像」→ファイルを選択']);
+    rows.push(['保存日時：'+rec.savedAt]);
+
+    var ws=XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols']=[{wch:24},{wch:8},{wch:8},{wch:10},{wch:10}];
+    ws['!merges']=[
+      {s:{r:0,c:0},e:{r:0,c:4}},
+      {s:{r:2,c:1},e:{r:2,c:4}},
+      {s:{r:3,c:1},e:{r:3,c:4}},
+      {s:{r:4,c:1},e:{r:4,c:4}},
+      {s:{r:5,c:1},e:{r:5,c:4}},
+      {s:{r:6,c:1},e:{r:6,c:4}},
+      {s:{r:7,c:1},e:{r:7,c:4}},
+      {s:{r:8,c:1},e:{r:8,c:4}},
+      {s:{r:10,c:0},e:{r:10,c:0}},
+    ];
+
+    // グラフ貼り付け欄を目立たせるためにセル高さ設定
+    ws['!rows']=[];
+    for(var ri2=0;ri2<rows.length;ri2++){ws['!rows'].push({hpt:ri2===0?30:ri2>=rows.length-12&&ri2<=rows.length-4?28:18});}
+
+    XLSX.utils.book_append_sheet(wb,ws,sheetName);
+  });
+
+  var today=new Date();
+  var fname='工事成績評定一覧_'
+    +today.getFullYear()
+    +(today.getMonth()+1<10?'0':'')+(today.getMonth()+1)
+    +(today.getDate()<10?'0':'')+today.getDate()
+    +'.xlsx';
+  XLSX.writeFile(wb,fname);
+
+  alert('✅ Excelをダウンロードしました！\n\n各工事のシートを開き「▼ グラフをここに貼り付け」の下に\nPNG画像を挿入してください。');
+}
+
+function makeSheetName(rec,num){
+  var n=(num<10?'0':'')+num+'_'+(rec.kojiName||'工事').replace(/[\\\/\?\*\[\]:]/g,'').substring(0,20);
+  return n;
+}
+
+function buildPrompt(){
+  var org=ORGS[currentOrg];
+  var scores=org.items.map(function(i){return i.name+'：○○点';}).join('\n');
+  var maxes=org.items.map(function(i){return i.name+'：'+i.max+'点';}).join('\n');
+  return '添付のPDFは工事成績評定通知書（'+org.label+'発注）です。'
+    +'以下の情報と6項目の得点を読み取り、【返答フォーマット】をそのまま使って返答してください。\n'
+    +'\n【返答フォーマット】\n'
+    +'工事名：○○\n'
+    +'受注者名：○○\n'
+    +'工事番号：○○\n'
+    +'工期：○○\n'
+    +'完成技術検査年月日：○○\n'
+    +'評定年月日：○○\n'
+    +'発注機関・事務所：○○\n'
+    +scores
+    +'\n\n【各項目の満点（合計100点）】\n'
+    +maxes
+    +'\n\n【注意】各項目は「項目名：値」の形で、1行ずつ改行して返答してください。'
+    +'工事番号は文書番号（例：国近整技管第279号）、工期は開始日〜終了日、'
+    +'評定年月日は通知書に記載の日付（例：令和8年2月26日）を記入してください。';
+}
+function updatePromptBox(){var el=document.getElementById('promptBox');if(el)el.textContent=buildPrompt();}
+function togglePrompt(){var w=document.getElementById('promptWrap');w.style.display=(w.style.display==='none'||w.style.display==='')?'block':'none';updatePromptBox();}
+function copyPrompt(){navigator.clipboard.writeText(buildPrompt()).then(function(){var btn=document.getElementById('copyBtn');var orig=btn.textContent;btn.textContent='✅ コピー完了';setTimeout(function(){btn.textContent=orig;},2000);});}
+function openClaude(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://claude.ai/new','_blank');}).catch(function(){window.open('https://claude.ai/new','_blank');});}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+</script>
+</body>
+</html>
