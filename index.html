@@ -89,7 +89,7 @@
   .form-label{font-size:11px;color:var(--gray-dark);font-weight:600;}
   .form-input{padding:8px 12px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s;}
   .form-input:focus{outline:none;border-color:var(--accent);}
-  .score-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+  .score-grid{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:16px;}
   .score-item{display:flex;flex-direction:column;gap:4px;padding:10px 12px;background:var(--gray-bg);border-radius:var(--radius-md);border:1px solid var(--border);}
   .score-item.differs{border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.05);}
   .score-name{font-size:11px;color:var(--text-secondary);line-height:1.4;font-weight:500;}
@@ -351,27 +351,55 @@ var modalCurrentId=null;
 var ORGS={
   hyogo:{label:'兵庫県',color:'#1D9E75',fillL:'rgba(29,158,117,0.18)',fillD:'rgba(29,158,117,0.28)',
     items:[
-      {key:'s1',name:'①施工体制',    max:7.4, kw:['施工体制'],               diff:false},
-      {key:'s2',name:'②施工状況',    max:35.0,kw:['施工状況'],               diff:true},
-      {key:'s3',name:'③出来形・出来ばえ',max:40.8,kw:['出来形','出来ばえ','できばえ'],diff:false},
-      {key:'s4',name:'④高度技術',    max:7.3, kw:['高度技術','工事特性'],    diff:false},
-      {key:'s5',name:'⑤創意工夫',    max:5.7, kw:['創意工夫'],               diff:false},
-      {key:'s6',name:'⑥社会性等',    max:3.8, kw:['社会性'],                 diff:true}
+      {key:'s1',name:'①施工体制',max:7.4},
+      {key:'s2',name:'②施工状況',max:35.0},
+      {key:'s3',name:'③出来形・出来ばえ',max:40.8},
+      {key:'s4',name:'④工事特性',max:7.3},
+      {key:'s5',name:'⑤創意工夫',max:5.7},
+      {key:'s6',name:'⑥社会性等',max:3.8}
+    ],
+    subs:[
+      {key:'d1',name:'Ⅰ施工体制一般',max:3.3,group:0},
+      {key:'d2',name:'Ⅱ配置技術者',  max:4.1,group:0},
+      {key:'d3',name:'Ⅰ施工管理',    max:13.0,group:1},
+      {key:'d4',name:'Ⅱ工程管理',    max:8.9,group:1},
+      {key:'d5',name:'Ⅲ安全対策',    max:9.4,group:1},
+      {key:'d6',name:'Ⅳ対外関係',    max:3.7,group:1},
+      {key:'d7',name:'Ⅰ出来形',      max:14.9,group:2},
+      {key:'d8',name:'Ⅱ品質',        max:17.4,group:2},
+      {key:'d9',name:'Ⅲ出来ばえ',    max:8.5,group:2},
+      {key:'d10',name:'④工事特性',   max:7.3,group:3},
+      {key:'d11',name:'⑤創意工夫',   max:5.7,group:4},
+      {key:'d12',name:'⑥社会性等',   max:3.8,group:5}
     ]},
   mlit:{label:'国土交通省',color:'#e91e8c',fillL:'rgba(233,30,140,0.15)',fillD:'rgba(233,30,140,0.25)',
     items:[
-      {key:'s1',name:'①施工体制',    max:7.4, kw:['施工体制'],               diff:false},
-      {key:'s2',name:'②施工状況',    max:33.6,kw:['施工状況'],               diff:true},
-      {key:'s3',name:'③出来形・出来ばえ',max:40.8,kw:['出来形','出来ばえ','できばえ'],diff:false},
-      {key:'s4',name:'④工事特性',    max:7.3, kw:['工事特性','高度技術'],    diff:false},
-      {key:'s5',name:'⑤創意工夫',    max:5.7, kw:['創意工夫'],               diff:false},
-      {key:'s6',name:'⑥社会性等',    max:5.2, kw:['社会性'],                 diff:true}
+      {key:'s1',name:'①施工体制',max:7.4},
+      {key:'s2',name:'②施工状況',max:33.6},
+      {key:'s3',name:'③出来形・出来ばえ',max:40.8},
+      {key:'s4',name:'④工事特性',max:7.3},
+      {key:'s5',name:'⑤創意工夫',max:5.7},
+      {key:'s6',name:'⑥社会性等',max:5.2}
+    ],
+    subs:[
+      {key:'d1',name:'Ⅰ施工体制一般',max:3.3,group:0},
+      {key:'d2',name:'Ⅱ配置技術者',  max:4.1,group:0},
+      {key:'d3',name:'Ⅰ施工管理',    max:13.0,group:1},
+      {key:'d4',name:'Ⅱ工程管理',    max:8.1,group:1},
+      {key:'d5',name:'Ⅲ安全対策',    max:8.8,group:1},
+      {key:'d6',name:'Ⅳ対外関係',    max:3.7,group:1},
+      {key:'d7',name:'Ⅰ出来形',      max:14.9,group:2},
+      {key:'d8',name:'Ⅱ品質',        max:17.4,group:2},
+      {key:'d9',name:'Ⅲ出来ばえ',    max:8.5,group:2},
+      {key:'d10',name:'④工事特性',   max:7.3,group:3},
+      {key:'d11',name:'⑤創意工夫',   max:5.7,group:4},
+      {key:'d12',name:'⑥社会性等',   max:5.2,group:5}
     ]}
 };
 
 var currentOrg='mlit';
 var chart=null;
-var prevVals={s1:0,s2:0,s3:0,s4:0,s5:0,s6:0};
+var prevVals={s1:0,s2:0,s3:0,s4:0,s5:0,s6:0,d1:0,d2:0,d3:0,d4:0,d5:0,d6:0,d7:0,d8:0,d9:0,d10:0,d11:0,d12:0};
 
 (function(){
   if(localStorage.getItem('ks-loggedin')==='1'){
@@ -426,15 +454,40 @@ function switchOrg(org){
 }
 
 function buildGrid(){
-  var grid=document.getElementById('scoreGrid');grid.innerHTML='';
-  ORGS[currentOrg].items.forEach(function(item){
-    var div=document.createElement('div');
-    div.className='score-item'+(item.diff?' differs':'');
-    var maxVal=Math.ceil(item.max*1.5);
-    div.innerHTML='<span class="score-name">'+item.name+(item.diff?'<span class="diff-badge">機関により異なる</span>':'')+'</span>'
-      +'<span class="score-max">満点：'+item.max+'点</span>'
-      +'<div class="score-row"><input class="score-inp" id="'+item.key+'" type="number" min="0" max="'+maxVal+'" step="0.1" value="'+(prevVals[item.key]||0)+'" oninput="updateAll()"><span class="score-pct" id="'+item.key+'_pct">0%</span></div>';
-    grid.appendChild(div);
+  var grid=document.getElementById('scoreGrid');
+  grid.innerHTML='';
+  var org=ORGS[currentOrg];
+  var groupNames=['①施工体制','②施工状況','③出来形・出来ばえ','④工事特性','⑤創意工夫','⑥社会性等'];
+  var groupColors=['#0ea5e9','#10b981','#f59e0b','#8b5cf6','#ef4444','#64748b'];
+
+  // グループごとにカードを作成
+  var groups=[[],[],[],[],[],[]];
+  org.subs.forEach(function(sub){ groups[sub.group].push(sub); });
+
+  groups.forEach(function(subs,gi){
+    var groupDiv=document.createElement('div');
+    groupDiv.style.cssText='grid-column:1/-1;background:var(--gray-bg);border-radius:var(--radius-md);border:1px solid var(--border);overflow:hidden;margin-bottom:4px;';
+
+    // グループヘッダー
+    var header=document.createElement('div');
+    header.style.cssText='background:'+groupColors[gi]+';color:#fff;padding:8px 14px;font-size:12px;font-weight:700;display:flex;justify-content:space-between;align-items:center;';
+    var itemKey='s'+(gi+1);
+    header.innerHTML='<span>'+groupNames[gi]+'</span><span id="subtotal_'+gi+'" style="font-family:DM Mono,monospace;font-size:13px;">0.0 / '+org.items[gi].max+'点</span>';
+    groupDiv.appendChild(header);
+
+    // 細別入力行
+    subs.forEach(function(sub){
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid var(--border);';
+      var maxVal=Math.ceil(sub.max*1.5);
+      row.innerHTML='<span style="font-size:12px;color:var(--text);flex:1;">'+sub.name+'</span>'
+        +'<span style="font-size:11px;color:var(--gray-mid);white-space:nowrap;">満点'+sub.max+'点</span>'
+        +'<input id="'+sub.key+'" type="number" min="0" max="'+maxVal+'" step="0.1" value="'+(prevVals[sub.key]||0)+'" oninput="updateAll()" style="width:72px;padding:5px 8px;font-size:14px;font-weight:700;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--white);color:var(--text);text-align:right;font-family:DM Mono,monospace;">'
+        +'<span id="'+sub.key+'_pct" style="font-size:11px;color:var(--gray-mid);min-width:36px;font-family:DM Mono,monospace;">0%</span>';
+      groupDiv.appendChild(row);
+    });
+
+    grid.appendChild(groupDiv);
   });
 }
 
@@ -442,84 +495,81 @@ function parseText(){
   var txt=document.getElementById('pasteArea').value;
   var res=document.getElementById('parseResult');
   if(!txt.trim()){res.style.display='none';return;}
-  var found=0;
 
-  // キーワードの後ろの値を行末まで取得するシンプルな抽出
   function extractVal(keys){
     var lines=txt.split(/[\r\n]+/);
     for(var ki=0;ki<keys.length;ki++){
       var k=keys[ki];
       for(var li=0;li<lines.length;li++){
         var line=lines[li];
-        var sepIdx=-1;
-        // 「：」「:」を探す
         var c1=line.indexOf('：');
         var c2=line.indexOf(':');
-        if(c1>=0) sepIdx=c1;
-        else if(c2>=0) sepIdx=c2;
-        if(sepIdx<0) continue;
+        var sepIdx=c1>=0?c1:(c2>=0?c2:-1);
+        if(sepIdx<0)continue;
         var label=line.substring(0,sepIdx).trim();
         var val=line.substring(sepIdx+1).trim();
-        if(label===k && val.length>0){
-          return val;
-        }
+        if(label===k&&val.length>0)return val;
       }
     }
     return '';
   }
 
-  var fields=[
-    ['kojiName',  ['工事名']],
-    ['juchu',     ['受注者名','受注者']],
-    ['nengetsu',  ['評定年月日','工事成績評定通知日']],
-    ['hatchu',    ['発注機関・事務所','発注機関','発注事務所']],
-    ['kojiNo',    ['工事番号']],
-    ['kouki',     ['工期']],
-    ['kensaDate', ['完成技術検査年月日']],
+  // 基本情報
+  [['kojiName',['工事名']],['juchu',['受注者名','受注者']],
+   ['nengetsu',['評定年月日','工事成績評定通知日']],
+   ['hatchu',['発注機関・事務所','発注機関','発注事務所']],
+   ['kojiNo',['工事番号']],['kouki',['工期']],
+   ['kensaDate',['完成技術検査年月日']]
+  ].forEach(function(pair){
+    var el=document.getElementById(pair[0]);
+    if(el&&!el.value){var v=extractVal(pair[1]);if(v)el.value=v;}
+  });
+
+  // 細別A-L → d1-d12
+  var subMap=[
+    ['d1', ['A（Ⅰ施工体制一般）','A（Ⅰ施工体制 一般）']],
+    ['d2', ['B（Ⅱ配置技術者）']],
+    ['d3', ['C（Ⅰ施工管理）']],
+    ['d4', ['D（Ⅱ工程管理）']],
+    ['d5', ['E（Ⅲ安全対策）']],
+    ['d6', ['F（Ⅳ対外関係）']],
+    ['d7', ['G（Ⅰ出来形）']],
+    ['d8', ['H（Ⅱ品質）']],
+    ['d9', ['I（Ⅲ出来ばえ）']],
+    ['d10',['J（④工事特性）']],
+    ['d11',['K（⑤創意工夫）']],
+    ['d12',['L（⑥社会性等）']]
   ];
-  fields.forEach(function(pair){
-    var id=pair[0];
-    if(document.getElementById(id)&&!document.getElementById(id).value){
-      var val=extractVal(pair[1]);
-      if(val)document.getElementById(id).value=val;
+
+  var found=0;
+  subMap.forEach(function(pair){
+    var el=document.getElementById(pair[0]);
+    if(!el)return;
+    var v=extractVal(pair[1]);
+    if(v){
+      var num=parseFloat(v);
+      if(!isNaN(num)&&num>=0){el.value=num.toFixed(1);prevVals[pair[0]]=num;found++;}
     }
   });
 
-  ORGS[currentOrg].items.forEach(function(item){
-    var matched=false;
-    item.kw.forEach(function(kw){
-      if(matched)return;
-      var pats=[
-        new RegExp(kw+'[^\\d]*([\\d]+\\.?[\\d]*)\\s*点'),
-        new RegExp(kw+'[：: 　]+([\\d]+\\.?[\\d]*)')
-      ];
-      pats.forEach(function(p){
-        if(matched)return;
-        var m=txt.match(p);
-        if(m){
-          var v=parseFloat(m[1]);
-          if(!isNaN(v)&&v>=0){
-            document.getElementById(item.key).value=v.toFixed(1);
-            prevVals[item.key]=v;
-            matched=true;found++;
-          }
-        }
-      });
-    });
-  });
-
   res.style.display='block';
-  if(found>=4){res.className='parse-result parse-ok';res.textContent='✅ '+found+'項目を自動入力しました。内容を確認してください。';}
+  if(found>=10){res.className='parse-result parse-ok';res.textContent='✅ '+found+'項目を自動入力しました。内容を確認してください。';}
   else if(found>0){res.className='parse-result parse-ng';res.textContent='⚠️ '+found+'項目のみ読み取れました。残りは手動で入力してください。';}
   else{res.className='parse-result parse-ng';res.textContent='❌ 数値を読み取れませんでした。手動で入力してください。';}
   updateAll();
 }
 
 function getValues(){
-  return ORGS[currentOrg].items.map(function(item){
-    var el=document.getElementById(item.key);
-    return parseFloat(el?el.value:0)||0;
+  var org=ORGS[currentOrg];
+  var groups=[0,0,0,0,0,0];
+  org.subs.forEach(function(sub){
+    var el=document.getElementById(sub.key);
+    var v=parseFloat(el?el.value:0)||0;
+    prevVals[sub.key]=v;
+    groups[sub.group]+=v;
   });
+  // 小数点2桁で丸め
+  return groups.map(function(v){return Math.round(v*100)/100;});
 }
 
 function getRatingInfo(total){
@@ -530,14 +580,35 @@ function getRatingInfo(total){
 }
 
 function updateAll(){
-  ORGS[currentOrg].items.forEach(function(item){var el=document.getElementById(item.key);if(el)prevVals[item.key]=parseFloat(el.value)||0;});
+  var org=ORGS[currentOrg];
+  // 細別のprevValsとpct更新
+  org.subs.forEach(function(sub){
+    var el=document.getElementById(sub.key);
+    if(el)prevVals[sub.key]=parseFloat(el.value)||0;
+    var pctEl=document.getElementById(sub.key+'_pct');
+    if(pctEl){
+      var pct=sub.max>0?Math.round((prevVals[sub.key]/sub.max)*100):0;
+      pctEl.textContent=pct+'%';
+      pctEl.style.color=pct>100?'#e91e8c':'';
+    }
+  });
+
+  // グループ小計更新
   var vals=getValues();
   var total=vals.reduce(function(a,b){return a+b;},0);
+
+  org.items.forEach(function(item,i){
+    var stEl=document.getElementById('subtotal_'+i);
+    if(stEl)stEl.textContent=vals[i].toFixed(1)+' / '+item.max+'点';
+  });
+
   document.getElementById('totalScore').textContent=total.toFixed(1);
-  ORGS[currentOrg].items.forEach(function(item,i){var el=document.getElementById(item.key+'_pct');if(el){var pct=item.max>0?Math.round(vals[i]/item.max*100):0;el.textContent=pct+'%';el.style.color=pct>100?'#e91e8c':'';}});
+
   var ri=getRatingInfo(total);
   var pill=document.getElementById('ratingPill');
-  pill.textContent=ri.label;pill.style.background=ri.bg.replace('0.2','0.25');pill.style.color=ri.color;
+  pill.textContent=ri.label;
+  pill.style.background=ri.bg.replace('0.2','0.25');
+  pill.style.color=ri.color;
   drawChart(vals);
 }
 
@@ -570,6 +641,8 @@ function saveToHistory(){
   var total=vals.reduce(function(a,b){return a+b;},0);
   var scores={};
   ORGS[currentOrg].items.forEach(function(item,i){scores[item.key]=vals[i];});
+  var subScores={};
+  ORGS[currentOrg].subs.forEach(function(sub){subScores[sub.key]=prevVals[sub.key]||0;});
   var record={
     id:Date.now(),savedAt:new Date().toLocaleString('ja-JP'),
     org:currentOrg,orgLabel:ORGS[currentOrg].label,
@@ -579,7 +652,7 @@ function saveToHistory(){
     kojiNo:document.getElementById('kojiNo').value,
     kouki:document.getElementById('kouki').value,
     kensaDate:document.getElementById('kensaDate').value,
-    total:parseFloat(total.toFixed(1)),scores:scores,
+    total:parseFloat(total.toFixed(1)),scores:scores,subScores:subScores,
     pngData:getCanvasPng()
   };
   var history=getHistory();history.unshift(record);
@@ -779,61 +852,54 @@ function makeSheetName(rec,num){
 function buildPrompt(){
   var org=ORGS[currentOrg];
   var orgNote = currentOrg === 'mlit'
-    ? '・得点は「別表1　項目別評定表」に記載（国交省発注）\n'
-    : '・得点は「別記様式第3　土木工事成績評定表」に記載（兵庫県発注）\n';
+    ? '・得点は「別表1　項目別評定表」に記載（国交省発注）\n・工事番号・評定年月日・工期・完成技術検査年月日は1枚目の通知書から\n'
+    : '・得点は「別記様式第3　土木工事成績評定表」に記載（兵庫県発注）\n・工事番号・評定年月日・工期・完成技術検査年月日は1枚目の通知書から\n';
 
   return '添付のPDFは工事成績評定通知書（'+org.label+'発注）です。\n'
-    +'以下の手順で情報を読み取り、【返答フォーマット】をそのまま使って返答してください。\n'
-    +'\n【基本情報の読み取り】\n'
-    +orgNote
-    +'・工事番号・評定年月日・工期・完成技術検査年月日は1枚目の通知書本文から読み取る\n'
-    +'\n【重要：得点の読み取り方法】\n'
-    +'評定表（別表1または別記様式第3）の「評定点／満点」の列から、\n'
-    +'評定点（スラッシュ「／」の左側の数値）を上から順番にすべて読み取り、\n'
-    +'以下の順番通りに各細別に割り当ててください。\n'
-    +'\n【数値の割り当て順番（上から12個）】\n'
-    +'1番目  → ①施工体制　　Ⅰ施工体制一般\n'
-    +'2番目  → ①施工体制　　Ⅱ配置技術者\n'
-    +'3番目  → ②施工状況　　Ⅰ施工管理\n'
-    +'4番目  → ②施工状況　　Ⅱ工程管理\n'
-    +'5番目  → ②施工状況　　Ⅲ安全対策\n'
-    +'6番目  → ②施工状況　　Ⅳ対外関係\n'
-    +'7番目  → ③出来形・出来ばえ　Ⅰ出来形\n'
-    +'8番目  → ③出来形・出来ばえ　Ⅱ品質\n'
-    +'9番目  → ③出来形・出来ばえ　Ⅲ出来ばえ\n'
-    +'10番目 → ④工事特性\n'
-    +'11番目 → ⑤創意工夫\n'
-    +'12番目 → ⑥社会性等\n'
-    +'\n【大項目の合計】\n'
-    +'①施工体制　　　= 1番目 ＋ 2番目\n'
-    +'②施工状況　　　= 3番目 ＋ 4番目 ＋ 5番目 ＋ 6番目\n'
-    +'③出来形・出来ばえ = 7番目 ＋ 8番目 ＋ 9番目\n'
-    +'④工事特性　　　= 10番目\n'
-    +'⑤創意工夫　　　= 11番目\n'
-    +'⑥社会性等　　　= 12番目\n'
-    +'※法令遵守等（減点のみ）が0でない場合は合計から引く\n'
-    +'※合計が「評定点合計」欄の数値と一致することを確認する\n'
+    +'以下の指示に従って読み取り、【返答フォーマット】をそのまま使って返答してください。\n'
+    +'\n【書類の場所】\n'+orgNote
+    +'\n【読み取り方法】\n'
+    +'評定表の中から以下の細別名を1つずつ探し、その行の「評定点（スラッシュ／の左側）」を読み取ってください。\n'
+    +'表が2列レイアウトでも、必ず細別名の行に対応する数値を読んでください。\n'
+    +'満点（スラッシュ右側）は読まないでください。\n'
+    +'\n【読み取る細別（12項目）】\n'
+    +'A: 「Ⅰ．施工体制一般」または「Ⅰ．施工体制 一般」の評定点\n'
+    +'B: 「Ⅱ．配置技術者」の評定点\n'
+    +'C: 「Ⅰ．施工管理」の評定点\n'
+    +'D: 「Ⅱ．工程管理」の評定点\n'
+    +'E: 「Ⅲ．安全対策」の評定点\n'
+    +'F: 「Ⅳ．対外関係」の評定点\n'
+    +'G: 「Ⅰ．出来形」の評定点\n'
+    +'H: 「Ⅱ．品質」の評定点\n'
+    +'I: 「Ⅲ．出来ばえ」の評定点\n'
+    +'J: 「Ⅰ．施工条件等への対応」の評定点\n'
+    +'K: 「創意工夫」の評定点\n'
+    +'L: 「地域への貢献等」の評定点\n'
+    +'\n【大項目の合計計算】\n'
+    +'①施工体制 = A＋B\n'
+    +'②施工状況 = C＋D＋E＋F\n'
+    +'③出来形・出来ばえ = G＋H＋I\n'
+    +'④工事特性 = J\n'
+    +'⑤創意工夫 = K\n'
+    +'⑥社会性等 = L\n'
+    +'※法令遵守等の減点が0でない場合は合計から引く\n'
+    +'※合計が「評定点合計」欄と一致するか確認する\n'
     +'\n【返答フォーマット】\n'
-    +'工事名：○○\n'
-    +'受注者名：○○\n'
-    +'工事番号：○○\n'
-    +'工期：○○\n'
-    +'完成技術検査年月日：○○\n'
-    +'評定年月日：○○\n'
-    +'発注機関・事務所：○○\n'
-    +'①施工体制：○○点（満点'+org.items[0].max+'点）\n'
-    +'②施工状況：○○点（満点'+org.items[1].max+'点）\n'
-    +'③出来形・出来ばえ：○○点（満点'+org.items[2].max+'点）\n'
-    +'④'+org.items[3].name.replace('④','')+'：○○点（満点'+org.items[3].max+'点）\n'
-    +'⑤創意工夫：○○点（満点'+org.items[4].max+'点）\n'
-    +'⑥社会性等：○○点（満点'+org.items[5].max+'点）\n'
-    +'評定点合計：○○点\n'
-    +'\n【注意事項】\n'
-    +'・各項目は「項目名：値」の形で1行ずつ改行して返答してください\n'
-    +'・工事番号は文書番号（例：国近整浪工第185号）\n'
-    +'・工期は開始日〜終了日の形式\n'
-    +'・評定年月日は通知書に記載の通知日\n'
-    +'・得点は必ず上記の割り当て順番通りに、スラッシュ左側の数値を使ってください';
+    +'工事名：○○\n受注者名：○○\n工事番号：○○\n工期：○○\n'
+    +'完成技術検査年月日：○○\n評定年月日：○○\n発注機関・事務所：○○\n'
+    +'A（Ⅰ施工体制一般）：○○\n'
+    +'B（Ⅱ配置技術者）：○○\n'
+    +'C（Ⅰ施工管理）：○○\n'
+    +'D（Ⅱ工程管理）：○○\n'
+    +'E（Ⅲ安全対策）：○○\n'
+    +'F（Ⅳ対外関係）：○○\n'
+    +'G（Ⅰ出来形）：○○\n'
+    +'H（Ⅱ品質）：○○\n'
+    +'I（Ⅲ出来ばえ）：○○\n'
+    +'J（④工事特性）：○○\n'
+    +'K（⑤創意工夫）：○○\n'
+    +'L（⑥社会性等）：○○\n'
+    +'評定点合計：○○点';
 }
 
 function updatePromptBox(){var el=document.getElementById('promptBox');if(el)el.textContent=buildPrompt();}
