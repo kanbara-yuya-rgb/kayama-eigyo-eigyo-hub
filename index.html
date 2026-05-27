@@ -256,8 +256,12 @@
 
           <div class="step-label"><span class="step-num">2</span> Claudeで読み取る</div>
           <div style="margin-bottom:18px;">
-            <button class="action-btn open-claude" onclick="openClaude()">🤖 Claudeでこのプロンプトを開く（PDF読み取り用）</button>
-            <div style="font-size:11px;color:var(--gray-mid);margin-top:6px;">※ プロンプトが自動コピーされ、Claude.aiが新しいタブで開きます。プロンプトを貼り付けてPDFも添付して送信してください。</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+              <button class="action-btn open-claude" onclick="openClaude()" style="flex:1;min-width:160px;justify-content:center;">🤖 Claudeで開く</button>
+              <button class="action-btn open-claude" onclick="openChatGPT()" style="flex:1;min-width:160px;justify-content:center;background:#10a37f;border-color:#10a37f;">🟢 ChatGPTで開く</button>
+              <button class="action-btn open-claude" onclick="openGemini()" style="flex:1;min-width:160px;justify-content:center;background:#4285f4;border-color:#4285f4;">✨ Geminiで開く</button>
+            </div>
+            <div style="font-size:11px;color:var(--gray-mid);">※ ボタンを押すとプロンプトが自動コピーされ、各AIが新しいタブで開きます。プロンプトを貼り付けてPDFも添付して送信してください。精度はClaudeが最も高いです。</div>
           </div>
 
           <div class="step-label"><span class="step-num">3</span> Claudeの返答をここにペースト（自動入力）</div>
@@ -822,6 +826,8 @@ function updatePromptBox(){var el=document.getElementById('promptBox');if(el)el.
 function togglePrompt(){var w=document.getElementById('promptWrap');w.style.display=(w.style.display==='none'||w.style.display==='')?'block':'none';updatePromptBox();}
 function copyPrompt(){navigator.clipboard.writeText(buildPrompt()).then(function(){var btn=document.getElementById('copyBtn');var orig=btn.textContent;btn.textContent='✅ コピー完了';setTimeout(function(){btn.textContent=orig;},2000);});}
 function openClaude(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://claude.ai/new','_blank');}).catch(function(){window.open('https://claude.ai/new','_blank');});}
+function openChatGPT(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://chatgpt.com/','_blank');}).catch(function(){window.open('https://chatgpt.com/','_blank');});}
+function openGemini(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://gemini.google.com/app','_blank');}).catch(function(){window.open('https://gemini.google.com/app','_blank');});}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
