@@ -346,6 +346,7 @@
 <script>
 var PASSWORD='kym-eigyo';
 var STORAGE_KEY='ks-seiseki-v2';
+var GAS_URL='https://script.google.com/a/macros/kayama-corp.jp/s/AKfycbxzHBltae3g48owSpOkEYkM9KsXNVkh-Vow_hLbml1Ede3YU3Xc1DfOfjHK5fm_FEcp/exec';
 var modalCurrentId=null;
 
 var ORGS={
@@ -658,7 +659,23 @@ function saveToHistory(){
   var history=getHistory();history.unshift(record);
   localStorage.setItem(STORAGE_KEY,JSON.stringify(history));
   renderHistory();
-  alert('✅「'+name+'」を一覧に保存しました！');
+
+  // GASへ送信（スプレッドシートに蓄積）
+  var sendData=JSON.parse(JSON.stringify(record));
+  sendData.pngData=''; // 画像データは送信しない
+  sendData.userAgent=navigator.userAgent.substring(0,50);
+  fetch(GAS_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(sendData),
+    mode:'no-cors'
+  }).then(function(){
+    console.log('GAS送信完了');
+  }).catch(function(err){
+    console.warn('GAS送信エラー:',err);
+  });
+
+  alert('✅「'+name+'」を一覧に保存しました！\nスプレッドシートにも記録されます。');
 }
 
 function getHistory(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}}
