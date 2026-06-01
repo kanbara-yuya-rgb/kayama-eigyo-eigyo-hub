@@ -166,6 +166,74 @@
   .placeholder-desc{font-size:13px;color:var(--gray-mid);line-height:1.7;}
   .coming-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(233,30,140,0.1);color:var(--accent);margin-top:14px;}
   ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--gray-light);border-radius:3px;}
+  /* 工事成績DB */
+  .db-toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+  .db-search{flex:1;min-width:200px;padding:9px 14px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s;}
+  .db-search:focus{outline:none;border-color:var(--accent);}
+  .db-filter-select{padding:9px 12px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;}
+  .db-count{font-size:12px;color:var(--gray-mid);white-space:nowrap;}
+  .db-table-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--border);}
+  .db-table{width:100%;border-collapse:collapse;font-size:12px;}
+  .db-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer;user-select:none;}
+  .db-table th:hover{background:#243460;}
+  .db-table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
+  .db-table tr:last-child td{border-bottom:none;}
+  .db-table tr:hover td{background:var(--gray-bg);}
+  .db-no{color:var(--gray-mid);font-family:'DM Mono',monospace;font-size:11px;}
+  .db-name{font-weight:600;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .db-year{white-space:nowrap;font-size:11px;}
+  .db-score{font-family:'DM Mono',monospace;font-weight:700;font-size:13px;text-align:center;}
+  .db-score.high{color:#059669;}
+  .db-score.mid{color:#0284c7;}
+  .db-score.low{color:#d97706;}
+  .db-score.empty{color:var(--gray-mid);}
+  .db-edit-btn{padding:3px 10px;font-size:11px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--gray-dark);cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .db-edit-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .db-link-btn{padding:3px 10px;font-size:11px;font-weight:600;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;white-space:nowrap;}
+  .db-link-btn:hover{background:#be185d;}
+  .db-link-empty{padding:3px 10px;font-size:11px;color:var(--gray-mid);font-style:italic;}
+  /* 編集モーダル */
+  .edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;display:none;align-items:center;justify-content:center;}
+  .edit-modal-overlay.open{display:flex;}
+  .edit-modal-box{background:var(--surface);border-radius:var(--radius-xl);padding:24px;width:500px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+  .edit-modal-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+  .edit-field{margin-bottom:12px;}
+  .edit-field label{display:block;font-size:11px;font-weight:700;color:var(--gray-dark);margin-bottom:4px;}
+  .edit-field input{width:100%;padding:8px 12px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;}
+  .edit-field input:focus{outline:none;border-color:var(--accent);}
+  .edit-field .field-hint{font-size:10px;color:var(--gray-mid);margin-top:3px;}
+  .edit-modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end;}
+  .edit-save-btn{padding:8px 20px;font-size:13px;font-weight:700;border-radius:var(--radius-md);border:none;background:var(--accent);color:#fff;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+  .edit-save-btn:hover{background:#be185d;}
+  .edit-cancel-btn{padding:8px 16px;font-size:13px;font-weight:600;border-radius:var(--radius-md);border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+  /* ライブラリ */
+  .lib-search{width:100%;padding:10px 14px;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--gray-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:16px;transition:border-color .2s;}
+  .lib-search:focus{outline:none;border-color:var(--accent);}
+  .lib-category{margin-bottom:20px;}
+  .lib-category-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy);border-radius:var(--radius-md);margin-bottom:8px;cursor:pointer;user-select:none;}
+  .lib-category-header:hover{background:var(--navy-light,#243460);}
+  .lib-category-icon{font-size:18px;}
+  .lib-category-name{font-size:13px;font-weight:700;color:#fff;flex:1;}
+  .lib-category-count{font-size:11px;color:rgba(255,255,255,0.6);padding:2px 8px;border-radius:10px;background:rgba(255,255,255,0.1);}
+  .lib-category-toggle{font-size:12px;color:rgba(255,255,255,0.6);transition:transform .2s;}
+  .lib-category-toggle.open{transform:rotate(180deg);}
+  .lib-items{display:flex;flex-direction:column;gap:6px;}
+  .lib-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);transition:all .15s;text-decoration:none;}
+  .lib-item:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(233,30,140,0.1);transform:translateY(-1px);}
+  .lib-item-icon{font-size:22px;flex-shrink:0;}
+  .lib-item-info{flex:1;min-width:0;}
+  .lib-item-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .lib-item-desc{font-size:11px;color:var(--gray-mid);line-height:1.4;}
+  .lib-item-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+  .lib-item-date{font-size:10px;color:var(--gray-mid);font-family:'DM Mono',monospace;}
+  .lib-item-badge{padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;}
+  .badge-valid{background:rgba(16,185,129,0.12);color:#059669;}
+  .badge-warn{background:rgba(245,158,11,0.15);color:#d97706;}
+  .badge-expired{background:rgba(239,68,68,0.12);color:#dc2626;}
+  .badge-none{background:var(--gray-bg);color:var(--gray-mid);}
+  .lib-open-btn{padding:6px 14px;font-size:11px;font-weight:700;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;transition:all .15s;text-decoration:none;display:inline-block;}
+  .lib-open-btn:hover{background:#be185d;}
+  .lib-maintenance{background:rgba(233,30,140,0.06);border:1px solid rgba(233,30,140,0.2);border-radius:var(--radius-md);padding:10px 14px;font-size:11px;color:var(--gray-dark);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 </style>
 </head>
 <body>
@@ -228,6 +296,14 @@
         <button class="nav-btn" id="nav-rakusatsu" onclick="showTool('rakusatsu',this)">
           <div class="nav-btn-icon">📋</div>
           <div><div class="nav-btn-label">入札結果報告書</div><div class="nav-btn-sub">落札決定通知書PDFから作成</div></div>
+        </button>
+        <button class="nav-btn" id="nav-library" onclick="showTool('library',this)">
+          <div class="nav-btn-icon">📂</div>
+          <div><div class="nav-btn-label">入札資料ライブラリ</div><div class="nav-btn-sub">最新書類をすぐ確認・開く</div></div>
+        </button>
+        <button class="nav-btn" id="nav-seiseki-db" onclick="showTool('seiseki-db',this)">
+          <div class="nav-btn-icon">🗂</div>
+          <div><div class="nav-btn-label">工事成績評定点 DB</div><div class="nav-btn-sub">93件の工事実績を検索・管理</div></div>
         </button>
       </div>
       <div class="info-card">
@@ -331,12 +407,197 @@
         </div>
       </div>
 
+      <!-- 工事成績評定点 DB -->
+      <div class="tool-section" id="tool-seiseki-db">
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">🗂</div>
+            <div>
+              <div class="tool-title">工事成績評定点 データベース</div>
+              <div class="tool-desc">93件の工事実績を検索・閲覧できます。評定点・年度・PDFリンクは「編集」ボタンから追加できます。</div>
+            </div>
+          </div>
+          <div class="db-toolbar">
+            <input class="db-search" id="dbSearch" placeholder="🔍 工事名で検索..." oninput="filterDB()">
+            <select class="db-filter-select" id="dbYearFilter" onchange="filterDB()">
+              <option value="">全年度</option>
+            </select>
+            <select class="db-filter-select" id="dbScoreFilter" onchange="filterDB()">
+              <option value="">全評定</option>
+              <option value="90">90点以上（優秀）</option>
+              <option value="80">80点以上</option>
+              <option value="70">70点以上</option>
+              <option value="none">未入力</option>
+            </select>
+            <span class="db-count" id="dbCount">93件</span>
+          </div>
+          <div class="db-table-wrap">
+            <table class="db-table" id="dbTable">
+              <thead>
+                <tr>
+                  <th onclick="sortDB('id')">No.</th>
+                  <th onclick="sortDB('year')">年度</th>
+                  <th>工事名</th>
+                  <th onclick="sortDB('score')">評定点</th>
+                  <th>PDF</th>
+                  <th>編集</th>
+                </tr>
+              </thead>
+              <tbody id="dbTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div class="tool-section" id="tool-rakusatsu">
         <div class="tool-card">
           <div class="tool-header"><div class="tool-icon">📋</div><div><div class="tool-title">入札結果報告書作成ツール</div><div class="tool-desc">落札決定通知書のPDFをClaudeに読み取らせて当社指定様式の結果報告書を自動作成</div></div></div>
           <div class="placeholder-card"><div class="placeholder-icon">🚧</div><div class="placeholder-title">準備中</div><div class="placeholder-desc">Excelテンプレートをアップロードしていただき次第、開発を進めます。</div><div class="coming-badge">Coming Soon</div></div>
         </div>
       </div>
+
+      <!-- 入札資料ライブラリ -->
+      <div class="tool-section" id="tool-library">
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">📂</div>
+            <div>
+              <div class="tool-title">入札資料ライブラリ</div>
+              <div class="tool-desc">入札書類作成に必要な最新資料を一覧で管理。有効期限・更新日を確認しながらすぐに開けます。</div>
+            </div>
+          </div>
+
+          <div class="lib-maintenance">
+            <span>🔧</span>
+            <span>資料のリンク・有効期限の更新はHTMLを編集してください。担当：<strong>神原さん</strong></span>
+          </div>
+
+          <!-- 検索 -->
+          <input class="lib-search" id="libSearch" placeholder="🔍 資料名で検索..." oninput="filterLib()">
+
+          <div id="libContainer">
+
+            <!-- カテゴリ①：表彰状・認定書 -->
+            <div class="lib-category" data-cat="award">
+              <div class="lib-category-header" onclick="toggleCat(this)">
+                <span class="lib-category-icon">🏆</span>
+                <span class="lib-category-name">表彰状・認定書</span>
+                <span class="lib-category-count" id="count-award">0件</span>
+                <span class="lib-category-toggle open">▼</span>
+              </div>
+              <div class="lib-items">
+                <div class="lib-item-placeholder" style="font-size:12px;color:var(--gray-mid);padding:12px 14px;text-align:center;">
+                  📋 リンクを追加してください（HTMLを編集）
+                </div>
+                <!-- 例：以下のコードをコピーして追加
+                <a href="【GoogleDriveのリンク】" target="_blank" class="lib-item">
+                  <span class="lib-item-icon">📄</span>
+                  <div class="lib-item-info">
+                    <div class="lib-item-name">コンクリート構造物品質コンテスト 表彰状</div>
+                    <div class="lib-item-desc">令和5年度 近畿地方整備局長賞</div>
+                  </div>
+                  <div class="lib-item-meta">
+                    <span class="lib-item-date">更新：2024/03/15</span>
+                    <span class="lib-item-badge badge-valid">有効</span>
+                  </div>
+                  <span class="lib-open-btn">開く</span>
+                </a>
+                -->
+              </div>
+            </div>
+
+            <!-- カテゴリ②：経審関連 -->
+            <div class="lib-category" data-cat="keishin">
+              <div class="lib-category-header" onclick="toggleCat(this)">
+                <span class="lib-category-icon">📊</span>
+                <span class="lib-category-name">経審関連</span>
+                <span class="lib-category-count" id="count-keishin">0件</span>
+                <span class="lib-category-toggle open">▼</span>
+              </div>
+              <div class="lib-items">
+                <div class="lib-item-placeholder" style="font-size:12px;color:var(--gray-mid);padding:12px 14px;text-align:center;">
+                  📋 リンクを追加してください（HTMLを編集）
+                </div>
+              </div>
+            </div>
+
+            <!-- カテゴリ③：会社概要・実績 -->
+            <div class="lib-category" data-cat="company">
+              <div class="lib-category-header" onclick="toggleCat(this)">
+                <span class="lib-category-icon">🏢</span>
+                <span class="lib-category-name">会社概要・実績</span>
+                <span class="lib-category-count" id="count-company">0件</span>
+                <span class="lib-category-toggle open">▼</span>
+              </div>
+              <div class="lib-items">
+                <div class="lib-item-placeholder" style="font-size:12px;color:var(--gray-mid);padding:12px 14px;text-align:center;">
+                  📋 リンクを追加してください（HTMLを編集）
+                </div>
+              </div>
+            </div>
+
+            <!-- カテゴリ④：DX・ICT関連 -->
+            <div class="lib-category" data-cat="dx">
+              <div class="lib-category-header" onclick="toggleCat(this)">
+                <span class="lib-category-icon">💻</span>
+                <span class="lib-category-name">DX・ICT認定</span>
+                <span class="lib-category-count" id="count-dx">0件</span>
+                <span class="lib-category-toggle open">▼</span>
+              </div>
+              <div class="lib-items">
+                <div class="lib-item-placeholder" style="font-size:12px;color:var(--gray-mid);padding:12px 14px;text-align:center;">
+                  📋 リンクを追加してください（HTMLを編集）
+                </div>
+              </div>
+            </div>
+
+            <!-- カテゴリ⑤：その他 -->
+            <div class="lib-category" data-cat="other">
+              <div class="lib-category-header" onclick="toggleCat(this)">
+                <span class="lib-category-icon">📁</span>
+                <span class="lib-category-name">その他</span>
+                <span class="lib-category-count" id="count-other">0件</span>
+                <span class="lib-category-toggle open">▼</span>
+              </div>
+              <div class="lib-items">
+                <div class="lib-item-placeholder" style="font-size:12px;color:var(--gray-mid);padding:12px 14px;text-align:center;">
+                  📋 リンクを追加してください（HTMLを編集）
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 編集モーダル -->
+<div class="edit-modal-overlay" id="editModalOverlay">
+  <div class="edit-modal-box">
+    <div class="edit-modal-title">✏️ 工事情報を編集</div>
+    <div class="edit-field">
+      <label>工事名</label>
+      <input type="text" id="editKojiName" readonly style="background:#f1f5f9;color:#94a3b8;">
+    </div>
+    <div class="edit-field">
+      <label>年度</label>
+      <input type="text" id="editYear" placeholder="例：令和6年度">
+    </div>
+    <div class="edit-field">
+      <label>評定点</label>
+      <input type="number" id="editScore" placeholder="例：85" min="0" max="100" step="0.1">
+      <div class="field-hint">0〜100点で入力してください</div>
+    </div>
+    <div class="edit-field">
+      <label>Google Drive URL</label>
+      <input type="url" id="editUrl" placeholder="https://drive.google.com/...">
+      <div class="field-hint">Google DriveでPDFを共有したURLを貼り付けてください</div>
+    </div>
+    <div class="edit-modal-btns">
+      <button class="edit-cancel-btn" onclick="closeEditModal()">キャンセル</button>
+      <button class="edit-save-btn" onclick="saveEdit()">💾 保存</button>
     </div>
   </div>
 </div>
@@ -444,7 +705,7 @@ function initApp(){
   var now=new Date();
   var days=['日','月','火','水','木','金','土'];
   document.getElementById('header-date').innerHTML=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日（<span>'+days[now.getDay()]+'曜日</span>）';
-  buildGrid();updateAll();updatePromptBox();renderHistory();
+  buildGrid();updateAll();updatePromptBox();renderHistory();countLibItems();initDB();
 }
 
 function switchOrg(org){
@@ -925,6 +1186,180 @@ function copyPrompt(){navigator.clipboard.writeText(buildPrompt()).then(function
 function openClaude(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://claude.ai/new','_blank');}).catch(function(){window.open('https://claude.ai/new','_blank');});}
 function openChatGPT(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://chatgpt.com/','_blank');}).catch(function(){window.open('https://chatgpt.com/','_blank');});}
 function openGemini(){navigator.clipboard.writeText(buildPrompt()).then(function(){window.open('https://gemini.google.com/app','_blank');}).catch(function(){window.open('https://gemini.google.com/app','_blank');});}
+function toggleCat(header){
+  var items=header.nextElementSibling;
+  var toggle=header.querySelector('.lib-category-toggle');
+  var isOpen=toggle.classList.contains('open');
+  if(isOpen){items.style.display='none';toggle.classList.remove('open');}
+  else{items.style.display='flex';toggle.classList.add('open');}
+}
+
+function filterLib(){
+  var q=document.getElementById('libSearch').value.toLowerCase();
+  document.querySelectorAll('.lib-item').forEach(function(item){
+    var name=item.querySelector('.lib-item-name');
+    var desc=item.querySelector('.lib-item-desc');
+    var text=((name?name.textContent:'')+(desc?desc.textContent:'')).toLowerCase();
+    item.style.display=(!q||text.includes(q))?'flex':'none';
+  });
+}
+
+function countLibItems(){
+  document.querySelectorAll('.lib-category').forEach(function(cat){
+    var catId=cat.getAttribute('data-cat');
+    var count=cat.querySelectorAll('.lib-item').length;
+    var countEl=document.getElementById('count-'+catId);
+    if(countEl)countEl.textContent=count+'件';
+  });
+}
+
+// ===== 工事成績評定点 DB =====
+var SEISEKI_DB_KEY='ks-seiseki-db-edits';
+var SEISEKI_DB_BASE=[{"id": 1, "kojiName": "猪名川左岸維持作業", "year": "平成27年度", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\27猪名川左岸維持作業.pdf", "fileName": "27猪名川左岸維持作業.pdf", "driveUrl": ""}, {"id": 2, "kojiName": "猪名川左岸維持作業", "year": "平成28年度", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\28猪名川左岸維持作業.pdf", "fileName": "28猪名川左岸維持作業.pdf", "driveUrl": ""}, {"id": 3, "kojiName": "猪名川左岸維持作業", "year": "平成29年度", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\29猪名川左岸維持作業.pdf", "fileName": "29猪名川左岸維持作業.pdf", "driveUrl": ""}, {"id": 4, "kojiName": "稲屋地区他堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\稲屋地区他堤防強化工事.pdf", "fileName": "稲屋地区他堤防強化工事.pdf", "driveUrl": ""}, {"id": 5, "kojiName": "下河原地区他河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\下河原地区他河道掘削他工事.pdf", "fileName": "下河原地区他河道掘削他工事.pdf", "driveUrl": ""}, {"id": 6, "kojiName": "下滝野地区河道掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\下滝野地区河道掘削工事.pdf", "fileName": "下滝野地区河道掘削工事.pdf", "driveUrl": ""}, {"id": 7, "kojiName": "加古川河原地区他掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川河原地区他掘削工事.pdf", "fileName": "加古川河原地区他掘削工事.pdf", "driveUrl": ""}, {"id": 8, "kojiName": "加古川河高下滝野地区築堤他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川河高下滝野地区築堤他工事.pdf", "fileName": "加古川河高下滝野地区築堤他工事.pdf", "driveUrl": ""}, {"id": 9, "kojiName": "加古川上滝野地区上流築堤工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川上滝野地区上流築堤工事.pdf", "fileName": "加古川上滝野地区上流築堤工事.pdf", "driveUrl": ""}, {"id": 10, "kojiName": "加古川上滝野地区築堤等整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川上滝野地区築堤等整備工事.pdf", "fileName": "加古川上滝野地区築堤等整備工事.pdf", "driveUrl": ""}, {"id": 11, "kojiName": "加古川上流部堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川上流部堤防強化工事.pdf", "fileName": "加古川上流部堤防強化工事.pdf", "driveUrl": ""}, {"id": 12, "kojiName": "加古川神吉中津線A2橋台（１期）工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川神吉中津線A2橋台（１期）工事.pdf", "fileName": "加古川神吉中津線A2橋台（１期）工事.pdf", "driveUrl": ""}, {"id": 13, "kojiName": "加古川西古瀬地区下流築堤工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川西古瀬地区下流築堤工事.pdf", "fileName": "加古川西古瀬地区下流築堤工事.pdf", "driveUrl": ""}, {"id": 14, "kojiName": "加古川滝見橋下流築堤他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝見橋下流築堤他工事.pdf", "fileName": "加古川滝見橋下流築堤他工事.pdf", "driveUrl": ""}, {"id": 15, "kojiName": "加古川滝見橋構造物撤去他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝見橋構造物撤去他工事.pdf", "fileName": "加古川滝見橋構造物撤去他工事.pdf", "driveUrl": ""}, {"id": 16, "kojiName": "加古川滝見橋周辺整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝見橋周辺整備工事.pdf", "fileName": "加古川滝見橋周辺整備工事.pdf", "driveUrl": ""}, {"id": 17, "kojiName": "加古川滝見橋上流掘削護岸工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝見橋上流掘削護岸工事.pdf", "fileName": "加古川滝見橋上流掘削護岸工事.pdf", "driveUrl": ""}, {"id": 18, "kojiName": "加古川滝見橋撤去他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝見橋撤去他工事.pdf", "fileName": "加古川滝見橋撤去他工事.pdf", "driveUrl": ""}, {"id": 19, "kojiName": "加古川滝野大橋上流掘削護岸工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝野大橋上流掘削護岸工事.pdf", "fileName": "加古川滝野大橋上流掘削護岸工事.pdf", "driveUrl": ""}, {"id": 20, "kojiName": "加古川滝野大橋上流護岸他整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川滝野大橋上流護岸他整備工事.pdf", "fileName": "加古川滝野大橋上流護岸他整備工事.pdf", "driveUrl": ""}, {"id": 21, "kojiName": "加古川中流部堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川中流部堤防強化工事.pdf", "fileName": "加古川中流部堤防強化工事.pdf", "driveUrl": ""}, {"id": 22, "kojiName": "加古川中流部堤防強化他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川中流部堤防強化他工事.pdf", "fileName": "加古川中流部堤防強化他工事.pdf", "driveUrl": ""}, {"id": 23, "kojiName": "加古川堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川堤防強化工事.pdf", "fileName": "加古川堤防強化工事.pdf", "driveUrl": ""}, {"id": 24, "kojiName": "加古川平荘地区堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\加古川平荘地区堤防強化工事.pdf", "fileName": "加古川平荘地区堤防強化工事.pdf", "driveUrl": ""}, {"id": 25, "kojiName": "河原地区掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\河原地区掘削工事.pdf", "fileName": "河原地区掘削工事.pdf", "driveUrl": ""}, {"id": 26, "kojiName": "河高地区河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\河高地区河道掘削他工事.pdf", "fileName": "河高地区河道掘削他工事.pdf", "driveUrl": ""}, {"id": 27, "kojiName": "栗栖川新宮地区橋梁下部工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\栗栖川新宮地区橋梁下部工事.pdf", "fileName": "栗栖川新宮地区橋梁下部工事.pdf", "driveUrl": ""}, {"id": 28, "kojiName": "栗生地区堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\栗生地区堤防強化工事.pdf", "fileName": "栗生地区堤防強化工事.pdf", "driveUrl": ""}, {"id": 29, "kojiName": "戸ノ内地区掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\戸ノ内地区掘削工事.pdf", "fileName": "戸ノ内地区掘削工事.pdf", "driveUrl": ""}, {"id": 30, "kojiName": "戸ノ内地区他堤防強化他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\戸ノ内地区他堤防強化他工事.pdf", "fileName": "戸ノ内地区他堤防強化他工事.pdf", "driveUrl": ""}, {"id": 31, "kojiName": "戸ノ内地区堤防耐震対策工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\戸ノ内地区堤防耐震対策工事.pdf", "fileName": "戸ノ内地区堤防耐震対策工事.pdf", "driveUrl": ""}, {"id": 32, "kojiName": "高木井堰改築他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\高木井堰改築他工事.pdf", "fileName": "高木井堰改築他工事.pdf", "driveUrl": ""}, {"id": 33, "kojiName": "国道２号玉津大橋他橋梁耐震補強工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\国道２号玉津大橋他橋梁耐震補強工事.pdf", "fileName": "国道２号玉津大橋他橋梁耐震補強工事.pdf", "driveUrl": ""}, {"id": 34, "kojiName": "国道２号門前西高架橋下部その他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\国道２号門前西高架橋下部その他工事.pdf", "fileName": "国道２号門前西高架橋下部その他工事.pdf", "driveUrl": ""}, {"id": 35, "kojiName": "国道２号門前地区改良工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\国道２号門前地区改良工事.pdf", "fileName": "国道２号門前地区改良工事.pdf", "driveUrl": ""}, {"id": 36, "kojiName": "国道26号大和川大橋拡幅下部その他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\国道26号大和川大橋拡幅下部その他工事.pdf", "fileName": "国道26号大和川大橋拡幅下部その他工事.pdf", "driveUrl": ""}, {"id": 37, "kojiName": "国道１７６号橋梁補強他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\国道１７６号橋梁補強他工事.pdf", "fileName": "国道１７６号橋梁補強他工事.pdf", "driveUrl": ""}, {"id": 38, "kojiName": "上荘地区堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\上荘地区堤防強化工事.pdf", "fileName": "上荘地区堤防強化工事.pdf", "driveUrl": ""}, {"id": 39, "kojiName": "森本地区他河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\森本地区他河道掘削他工事.pdf", "fileName": "森本地区他河道掘削他工事.pdf", "driveUrl": ""}, {"id": 40, "kojiName": "西宝橋下部工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西宝橋下部工事.pdf", "fileName": "西宝橋下部工事.pdf", "driveUrl": ""}, {"id": 41, "kojiName": "西宝橋下部撤去他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西宝橋下部撤去他工事.pdf", "fileName": "西宝橋下部撤去他工事.pdf", "driveUrl": ""}, {"id": 42, "kojiName": "西脇北バイパス下戸田高架橋（P9-P11）下部工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西脇北バイパス下戸田高架橋（P9-P11）下部工事.pdf", "fileName": "西脇北バイパス下戸田高架橋（P9-P11）下部工事.pdf", "driveUrl": ""}, {"id": 43, "kojiName": "西脇北バイパス下戸田高架橋下部他整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西脇北バイパス下戸田高架橋下部他整備工事.pdf", "fileName": "西脇北バイパス下戸田高架橋下部他整備工事.pdf", "driveUrl": ""}, {"id": 44, "kojiName": "西脇北バイパス蒲江地区改良工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西脇北バイパス蒲江地区改良工事.pdf", "fileName": "西脇北バイパス蒲江地区改良工事.pdf", "driveUrl": ""}, {"id": 45, "kojiName": "西脇北バイパス上戸田地区改良他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西脇北バイパス上戸田地区改良他工事.pdf", "fileName": "西脇北バイパス上戸田地区改良他工事.pdf", "driveUrl": ""}, {"id": 46, "kojiName": "西脇北バイパス津万高架橋下部（寺内地区）工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\西脇北バイパス津万高架橋下部（寺内地区）工事.pdf", "fileName": "西脇北バイパス津万高架橋下部（寺内地区）工事.pdf", "driveUrl": ""}, {"id": 47, "kojiName": "相生有年道路東有年地区地下道設置工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\相生有年道路東有年地区地下道設置工事.pdf", "fileName": "相生有年道路東有年地区地下道設置工事.pdf", "driveUrl": ""}, {"id": 48, "kojiName": "相生有年道路有年牟礼原地区他整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\相生有年道路有年牟礼原地区他整備工事.pdf", "fileName": "相生有年道路有年牟礼原地区他整備工事.pdf", "driveUrl": ""}, {"id": 49, "kojiName": "藻川橋堤防取付工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\藻川橋堤防取付工事.pdf", "fileName": "藻川橋堤防取付工事.pdf", "driveUrl": ""}, {"id": 50, "kojiName": "大阪湾岸道路西伸部ＲＩ西ランプＵ１他基礎工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\大阪湾岸道路西伸部ＲＩ西ランプＵ１他基礎工事.pdf", "fileName": "大阪湾岸道路西伸部ＲＩ西ランプＵ１他基礎工事.pdf", "driveUrl": ""}, {"id": 51, "kojiName": "大阪湾岸道路西伸部六甲アイランド西ランプ橋台他基礎工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\大阪湾岸道路西伸部六甲アイランド西ランプ橋台他基礎工事.pdf", "fileName": "大阪湾岸道路西伸部六甲アイランド西ランプ橋台他基礎工事.pdf", "driveUrl": ""}, {"id": 52, "kojiName": "大阪湾岸道路西伸部六甲アイランド第四高架橋PE14下部工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\大阪湾岸道路西伸部六甲アイランド第四高架橋PE14下部工事.pdf", "fileName": "大阪湾岸道路西伸部六甲アイランド第四高架橋PE14下部工事.pdf", "driveUrl": ""}, {"id": 53, "kojiName": "大門地区他堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\大門地区他堤防強化工事.pdf", "fileName": "大門地区他堤防強化工事.pdf", "driveUrl": ""}, {"id": 54, "kojiName": "滝野地区河道掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\滝野地区河道掘削工事.pdf", "fileName": "滝野地区河道掘削工事.pdf", "driveUrl": ""}, {"id": 55, "kojiName": "猪名川右岸維持作業", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川右岸維持作業.pdf", "fileName": "猪名川右岸維持作業.pdf", "driveUrl": ""}, {"id": 56, "kojiName": "猪名川戸ノ内下流地区河道掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川戸ノ内下流地区河道掘削工事.pdf", "fileName": "猪名川戸ノ内下流地区河道掘削工事.pdf", "driveUrl": ""}, {"id": 57, "kojiName": "猪名川戸ノ内地区河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川戸ノ内地区河道掘削他工事.pdf", "fileName": "猪名川戸ノ内地区河道掘削他工事.pdf", "driveUrl": ""}, {"id": 58, "kojiName": "猪名川口酒井地区他河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川口酒井地区他河道掘削他工事.pdf", "fileName": "猪名川口酒井地区他河道掘削他工事.pdf", "driveUrl": ""}, {"id": 59, "kojiName": "猪名川左岸維持作業", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川左岸維持作業.pdf", "fileName": "猪名川左岸維持作業.pdf", "driveUrl": ""}, {"id": 60, "kojiName": "猪名川左岸区域維持作業", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川左岸区域維持作業.pdf", "fileName": "猪名川左岸区域維持作業.pdf", "driveUrl": ""}, {"id": 61, "kojiName": "猪名川出在家地区低水護岸他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川出在家地区低水護岸他工事.pdf", "fileName": "猪名川出在家地区低水護岸他工事.pdf", "driveUrl": ""}, {"id": 62, "kojiName": "猪名川森本地区他河道他掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川森本地区他河道他掘削他工事.pdf", "fileName": "猪名川森本地区他河道他掘削他工事.pdf", "driveUrl": ""}, {"id": 63, "kojiName": "猪名川東園田・今在家地区河道掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川東園田・今在家地区河道掘削工事.pdf", "fileName": "猪名川東園田・今在家地区河道掘削工事.pdf", "driveUrl": ""}, {"id": 64, "kojiName": "猪名川東園田地区河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川東園田地区河道掘削他工事.pdf", "fileName": "猪名川東園田地区河道掘削他工事.pdf", "driveUrl": ""}, {"id": 65, "kojiName": "猪名川東園田地区他河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川東園田地区他河道掘削他工事.pdf", "fileName": "猪名川東園田地区他河道掘削他工事.pdf", "driveUrl": ""}, {"id": 66, "kojiName": "猪名川東園田地区他堤防強化他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\猪名川東園田地区他堤防強化他工事.pdf", "fileName": "猪名川東園田地区他堤防強化他工事.pdf", "driveUrl": ""}, {"id": 67, "kojiName": "田能口酒井地区河道掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\田能口酒井地区河道掘削工事.pdf", "fileName": "田能口酒井地区河道掘削工事.pdf", "driveUrl": ""}, {"id": 68, "kojiName": "田能地区災害復旧工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\田能地区災害復旧工事.pdf", "fileName": "田能地区災害復旧工事.pdf", "driveUrl": ""}, {"id": 69, "kojiName": "島田地区堤防強化工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\島田地区堤防強化工事.pdf", "fileName": "島田地区堤防強化工事.pdf", "driveUrl": ""}, {"id": 70, "kojiName": "東園田地区他遮水矢板他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\東園田地区他遮水矢板他工事.pdf", "fileName": "東園田地区他遮水矢板他工事.pdf", "driveUrl": ""}, {"id": 71, "kojiName": "藤ノ木地区低水護岸他補修工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\藤ノ木地区低水護岸他補修工事.pdf", "fileName": "藤ノ木地区低水護岸他補修工事.pdf", "driveUrl": ""}, {"id": 72, "kojiName": "平野拡幅常本地区改良工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\平野拡幅常本地区改良工事.pdf", "fileName": "平野拡幅常本地区改良工事.pdf", "driveUrl": ""}, {"id": 73, "kojiName": "名塩道路城山地区改良（切土）工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路城山地区改良（切土）工事.pdf", "fileName": "名塩道路城山地区改良（切土）工事.pdf", "driveUrl": ""}, {"id": 74, "kojiName": "名塩道路城山地区改良工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路城山地区改良工事.pdf", "fileName": "名塩道路城山地区改良工事.pdf", "driveUrl": ""}, {"id": 75, "kojiName": "名塩道路大多田橋仮橋整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路大多田橋仮橋整備工事.pdf", "fileName": "名塩道路大多田橋仮橋整備工事.pdf", "driveUrl": ""}, {"id": 76, "kojiName": "名塩道路張出橋下部他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路張出橋下部他工事.pdf", "fileName": "名塩道路張出橋下部他工事.pdf", "driveUrl": ""}, {"id": 77, "kojiName": "名塩道路南之町地区他残土運搬処分工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路南之町地区他残土運搬処分工事.pdf", "fileName": "名塩道路南之町地区他残土運搬処分工事.pdf", "driveUrl": ""}, {"id": 78, "kojiName": "名塩道路武庫川張出橋下部他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路武庫川張出橋下部他工事.pdf", "fileName": "名塩道路武庫川張出橋下部他工事.pdf", "driveUrl": ""}, {"id": 79, "kojiName": "名塩道路武庫川張出部下部工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路武庫川張出部下部工事.pdf", "fileName": "名塩道路武庫川張出部下部工事.pdf", "driveUrl": ""}, {"id": 80, "kojiName": "名塩道路武庫川張出部下部設置工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路武庫川張出部下部設置工事.pdf", "fileName": "名塩道路武庫川張出部下部設置工事.pdf", "driveUrl": ""}, {"id": 81, "kojiName": "名塩道路名塩木之元地区他整備工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名塩道路名塩木之元地区他整備工事.pdf", "fileName": "名塩道路名塩木之元地区他整備工事.pdf", "driveUrl": ""}, {"id": 82, "kojiName": "名月陸橋橋梁耐震・補修工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\名月陸橋橋梁耐震・補修工事.pdf", "fileName": "名月陸橋橋梁耐震・補修工事.pdf", "driveUrl": ""}, {"id": 83, "kojiName": "弥生ヶ丘・善法寺河道掘削工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\弥生ヶ丘・善法寺河道掘削工事.pdf", "fileName": "弥生ヶ丘・善法寺河道掘削工事.pdf", "driveUrl": ""}, {"id": 84, "kojiName": "藍那口周辺改良工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\藍那口周辺改良工事.pdf", "fileName": "藍那口周辺改良工事.pdf", "driveUrl": ""}, {"id": 85, "kojiName": "利倉橋下部工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\利倉橋下部工事.pdf", "fileName": "利倉橋下部工事.pdf", "driveUrl": ""}, {"id": 86, "kojiName": "利倉地区根固めブロック設置他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\利倉地区根固めブロック設置他工事.pdf", "fileName": "利倉地区根固めブロック設置他工事.pdf", "driveUrl": ""}, {"id": 87, "kojiName": "利倉地区他河道掘削他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\利倉地区他河道掘削他工事.pdf", "fileName": "利倉地区他河道掘削他工事.pdf", "driveUrl": ""}, {"id": 88, "kojiName": "林田川赤井頭首工撤去他工事", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\林田川赤井頭首工撤去他工事.pdf", "fileName": "林田川赤井頭首工撤去他工事.pdf", "driveUrl": ""}, {"id": 89, "kojiName": "六甲アイランド北側歩道橋整備工事（その１）", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\六甲アイランド北側歩道橋整備工事（その１）.pdf", "fileName": "六甲アイランド北側歩道橋整備工事（その１）.pdf", "driveUrl": ""}, {"id": 90, "kojiName": "六甲アイランド北側歩道橋整備工事（その２）", "year": "", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\六甲アイランド北側歩道橋整備工事（その２）.pdf", "fileName": "六甲アイランド北側歩道橋整備工事（その２）.pdf", "driveUrl": ""}, {"id": 91, "kojiName": "猪名川左岸維持作業", "year": "平成24年度", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\24猪名川左岸維持作業.pdf", "fileName": "24猪名川左岸維持作業.pdf", "driveUrl": ""}, {"id": 92, "kojiName": "猪名川左岸維持作業", "year": "平成25年度", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\25猪名川左岸維持作業.pdf", "fileName": "25猪名川左岸維持作業.pdf", "driveUrl": ""}, {"id": 93, "kojiName": "猪名川左岸維持作業", "year": "平成26年度", "score": null, "filePath": "C:\\Users\\kanbara-yuya\\Desktop\\コリンズコピー\\＜国＞工事成績評定通知書（2011.4～2025.3）\\26猪名川左岸維持作業.pdf", "fileName": "26猪名川左岸維持作業.pdf", "driveUrl": ""}];
+
+// localStorageの編集データとマージ
+function getSeisekiDB(){
+  var base=JSON.parse(JSON.stringify(SEISEKI_DB_BASE));
+  try{
+    var edits=JSON.parse(localStorage.getItem(SEISEKI_DB_KEY)||'{}');
+    base.forEach(function(r){
+      if(edits[r.id]){
+        r.year=edits[r.id].year||r.year;
+        r.score=edits[r.id].score!==undefined?edits[r.id].score:r.score;
+        r.driveUrl=edits[r.id].driveUrl||r.driveUrl;
+      }
+    });
+  }catch(e){}
+  return base;
+}
+
+var dbSortKey='id';
+var dbSortAsc=true;
+var dbCurrentEditId=null;
+
+function initDB(){
+  // 年度フィルタの選択肢を作成
+  var db=getSeisekiDB();
+  var years=[...new Set(db.map(function(r){return r.year;}).filter(Boolean))].sort();
+  var sel=document.getElementById('dbYearFilter');
+  if(sel){
+    years.forEach(function(y){
+      var opt=document.createElement('option');
+      opt.value=y;opt.textContent=y;
+      sel.appendChild(opt);
+    });
+  }
+  renderDB();
+}
+
+function filterDB(){renderDB();}
+
+function sortDB(key){
+  if(dbSortKey===key)dbSortAsc=!dbSortAsc;
+  else{dbSortKey=key;dbSortAsc=true;}
+  renderDB();
+}
+
+function renderDB(){
+  var db=getSeisekiDB();
+  var q=(document.getElementById('dbSearch')||{}).value||'';
+  var yearF=(document.getElementById('dbYearFilter')||{}).value||'';
+  var scoreF=(document.getElementById('dbScoreFilter')||{}).value||'';
+
+  // フィルタ
+  var filtered=db.filter(function(r){
+    if(q&&r.kojiName.indexOf(q)<0)return false;
+    if(yearF&&r.year!==yearF)return false;
+    if(scoreF==='none'&&r.score!==null)return false;
+    if(scoreF&&scoreF!=='none'){
+      if(r.score===null||r.score<parseFloat(scoreF))return false;
+    }
+    return true;
+  });
+
+  // ソート
+  filtered.sort(function(a,b){
+    var av=a[dbSortKey],bv=b[dbSortKey];
+    if(av===null||av===undefined||av==='')av=dbSortAsc?Infinity:-Infinity;
+    if(bv===null||bv===undefined||bv==='')bv=dbSortAsc?Infinity:-Infinity;
+    if(av<bv)return dbSortAsc?-1:1;
+    if(av>bv)return dbSortAsc?1:-1;
+    return 0;
+  });
+
+  // カウント更新
+  var countEl=document.getElementById('dbCount');
+  if(countEl)countEl.textContent=filtered.length+'件'+(filtered.length<db.length?' / '+db.length+'件中':'');
+
+  // テーブル描画
+  var tbody=document.getElementById('dbTbody');
+  if(!tbody)return;
+  if(filtered.length===0){
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--gray-mid);">該当する工事が見つかりません</td></tr>';
+    return;
+  }
+
+  var html='';
+  filtered.forEach(function(r,idx){
+    var scoreHtml='<span class="db-score empty">-</span>';
+    if(r.score!==null&&r.score!==undefined){
+      var sc=parseFloat(r.score);
+      var cls=sc>=90?'high':sc>=75?'mid':'low';
+      scoreHtml='<span class="db-score '+cls+'">'+sc.toFixed(1)+'</span>';
+    }
+    var pdfHtml=r.driveUrl
+      ?'<a href="'+esc(r.driveUrl)+'" target="_blank" class="db-link-btn">📄 開く</a>'
+      :'<span class="db-link-empty">未登録</span>';
+
+    html+='<tr>'
+      +'<td class="db-no">'+(idx+1)+'</td>'
+      +'<td class="db-year">'+esc(r.year||'不明')+'</td>'
+      +'<td class="db-name" title="'+esc(r.kojiName)+'">'+esc(r.kojiName)+'</td>'
+      +'<td style="text-align:center;">'+scoreHtml+'</td>'
+      +'<td>'+pdfHtml+'</td>'
+      +'<td><button class="db-edit-btn" onclick="openEditModal('+r.id+')">✏️ 編集</button></td>'
+      +'</tr>';
+  });
+  tbody.innerHTML=html;
+}
+
+function openEditModal(id){
+  var db=getSeisekiDB();
+  var rec=db.find(function(r){return r.id===id;});
+  if(!rec)return;
+  dbCurrentEditId=id;
+  document.getElementById('editKojiName').value=rec.kojiName;
+  document.getElementById('editYear').value=rec.year||'';
+  document.getElementById('editScore').value=rec.score!==null?rec.score:'';
+  document.getElementById('editUrl').value=rec.driveUrl||'';
+  document.getElementById('editModalOverlay').classList.add('open');
+}
+
+function closeEditModal(){
+  document.getElementById('editModalOverlay').classList.remove('open');
+  dbCurrentEditId=null;
+}
+
+function saveEdit(){
+  if(!dbCurrentEditId)return;
+  var edits=JSON.parse(localStorage.getItem(SEISEKI_DB_KEY)||'{}');
+  var score=document.getElementById('editScore').value;
+  edits[dbCurrentEditId]={
+    year:document.getElementById('editYear').value,
+    score:score!==''?parseFloat(score):null,
+    driveUrl:document.getElementById('editUrl').value
+  };
+  localStorage.setItem(SEISEKI_DB_KEY,JSON.stringify(edits));
+  closeEditModal();
+  renderDB();
+}
+
+// モーダル外クリックで閉じる
+document.addEventListener('click',function(e){
+  var overlay=document.getElementById('editModalOverlay');
+  if(overlay&&e.target===overlay)closeEditModal();
+});
+
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
