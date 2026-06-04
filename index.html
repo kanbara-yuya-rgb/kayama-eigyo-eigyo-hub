@@ -274,10 +274,10 @@
     <div class="notice-ticker-wrap"><div class="notice-ticker">
       <div class="notice-item"><span class="notice-dot"></span>Kayama Sales Hub を公開しました。</div>
       <div class="notice-item"><span class="notice-dot"></span>工事成績評定グラフツール：保存→一覧に蓄積、Excelに各工事シート＋グラフ貼り付け欄を自動生成します。</div>
-      <div class="notice-item"><span class="notice-dot"></span>入札業務報告書・入札結果報告書ツールは近日公開予定です。</div>
+      <div class="notice-item"><span class="notice-dot"></span>入札結果報告書 転記ツール：Excel・落札決定通知書・入札結果PDFをCoworkのClaudeに添付して「転記して」と送信するだけで自動処理されます。</div>
       <div class="notice-item"><span class="notice-dot"></span>Kayama Sales Hub を公開しました。</div>
       <div class="notice-item"><span class="notice-dot"></span>工事成績評定グラフツール：保存→一覧に蓄積、Excelに各工事シート＋グラフ貼り付け欄を自動生成します。</div>
-      <div class="notice-item"><span class="notice-dot"></span>入札業務報告書・入札結果報告書ツールは近日公開予定です。</div>
+      <div class="notice-item"><span class="notice-dot"></span>入札結果報告書 転記ツール：Excel・落札決定通知書・入札結果PDFをCoworkのClaudeに添付して「転記して」と送信するだけで自動処理されます。</div>
     </div></div>
   </div>
 
@@ -295,7 +295,7 @@
         </button>
         <button class="nav-btn" id="nav-rakusatsu" onclick="showTool('rakusatsu',this)">
           <div class="nav-btn-icon">📋</div>
-          <div><div class="nav-btn-label">入札結果報告書</div><div class="nav-btn-sub">落札決定通知書PDFから作成</div></div>
+          <div><div class="nav-btn-label">入札結果報告書</div><div class="nav-btn-sub">PDFとExcelを添付して自動転記</div></div>
         </button>
         <button class="nav-btn" id="nav-library" onclick="showTool('library',this)">
           <div class="nav-btn-icon">📂</div>
@@ -451,8 +451,66 @@
 
       <div class="tool-section" id="tool-rakusatsu">
         <div class="tool-card">
-          <div class="tool-header"><div class="tool-icon">📋</div><div><div class="tool-title">入札結果報告書作成ツール</div><div class="tool-desc">落札決定通知書のPDFをClaudeに読み取らせて当社指定様式の結果報告書を自動作成</div></div></div>
-          <div class="placeholder-card"><div class="placeholder-icon">🚧</div><div class="placeholder-title">準備中</div><div class="placeholder-desc">Excelテンプレートをアップロードしていただき次第、開発を進めます。</div><div class="coming-badge">Coming Soon</div></div>
+          <div class="tool-header">
+            <div class="tool-icon">📋</div>
+            <div>
+              <div class="tool-title">入札結果報告書 転記ツール</div>
+              <div class="tool-desc">「落札決定通知書」と「入札結果」のPDFをCoworkのClaudeに添付するだけで、Excel様式の各シートへ自動転記・整形して出力します。</div>
+            </div>
+          </div>
+          <div class="step-label"><span class="step-num">1</span> 以下の3ファイルを用意する</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
+            <div style="background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:center;">
+              <div style="font-size:28px;margin-bottom:8px;">📊</div>
+              <div style="font-size:12px;font-weight:700;color:var(--text);">Excel様式ファイル</div>
+              <div style="font-size:11px;color:var(--gray-mid);margin-top:4px;">.xls 形式の報告書テンプレート</div>
+            </div>
+            <div style="background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:center;">
+              <div style="font-size:28px;margin-bottom:8px;">📄</div>
+              <div style="font-size:12px;font-weight:700;color:var(--text);">落札決定通知書</div>
+              <div style="font-size:11px;color:var(--gray-mid);margin-top:4px;">PDF（通知日・業者名・金額）</div>
+            </div>
+            <div style="background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;text-align:center;">
+              <div style="font-size:28px;margin-bottom:8px;">📃</div>
+              <div style="font-size:12px;font-weight:700;color:var(--text);">入札結果</div>
+              <div style="font-size:11px;color:var(--gray-mid);margin-top:4px;">PDF（全業者の入札結果一覧）</div>
+            </div>
+          </div>
+          <div class="step-label"><span class="step-num">2</span> Claudeを開いて3ファイルを添付し「転記して」と送信する</div>
+          <div style="margin-bottom:20px;">
+            <button class="action-btn open-claude" onclick="window.open('https://claude.ai/new','_blank')" style="width:100%;justify-content:center;padding:13px;font-size:14px;">
+              🤖 Claudeを開く
+            </button>
+            <div style="margin-top:10px;padding:12px 16px;background:rgba(233,30,140,0.06);border:1px solid rgba(233,30,140,0.2);border-radius:var(--radius-md);font-size:11px;color:var(--gray-dark);line-height:1.9;">
+              ⚠️ <strong>Claude デスクトップアプリ（Cowork）でご利用ください。</strong><br>
+              スキル「入札報告書転記」がインストール済みであることを確認してください。<br>
+              3ファイルを添付して <strong>「転記して」</strong> と送信するだけで自動処理されます。
+            </div>
+          </div>
+          <div class="step-label"><span class="step-num">3</span> 自動転記・整形される内容</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+            <div style="background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;">
+              <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:8px;">入札報告書シート</div>
+              <div style="font-size:12px;color:var(--text);line-height:2.0;">
+                ✔ 通知年月日（F4）<br>
+                ✔ 決定業者名（K4）<br>
+                ✔ 決定金額（K5）
+              </div>
+            </div>
+            <div style="background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;">
+              <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:8px;">別紙 3シート</div>
+              <div style="font-size:12px;color:var(--text);line-height:2.0;">
+                ✔ 入札金額（昇順・落札者先頭）<br>
+                ✔ 評価点（降順）<br>
+                ✔ 評価値（降順）
+              </div>
+            </div>
+          </div>
+          <div style="background:rgba(33,115,70,0.08);border:1px solid rgba(33,115,70,0.25);border-radius:var(--radius-md);padding:12px 16px;font-size:12px;color:var(--text);line-height:2.0;">
+            <span style="font-weight:700;color:#217346;">✅ 書式も自動処理</span><br>
+            業者名を略称に変換（株式会社→（株））／カンマ区切り数値（257,770,000）<br>
+            罫線・日本語年号日付／辞退・無効業者の記載／合計行（以上N社）
+          </div>
         </div>
       </div>
 
